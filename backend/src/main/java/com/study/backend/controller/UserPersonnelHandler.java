@@ -30,4 +30,23 @@ public class UserPersonnelHandler {
         }
     }
 
+    @GetMapping("/findById/{id}")
+    public UserPersonnel findById(@PathVariable("id") Integer id) {
+        return userPersonnelRepository.findById(id).get();
+    }
+
+    @PutMapping("/update")
+    public String update(@RequestBody UserPersonnel userPersonnel) {
+        UserPersonnel result = userPersonnelRepository.save(userPersonnel);
+        if (result != null) {
+            return "success";
+        }else {
+            return "error";
+        }
+    }
+
+    @DeleteMapping("/deleteById/{id}")
+    public void deleteById(@PathVariable("id") Integer id) {
+        userPersonnelRepository.deleteById(id);
+    }
 }

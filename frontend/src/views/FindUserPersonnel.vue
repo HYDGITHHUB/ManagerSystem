@@ -34,8 +34,8 @@
                     label="操作"
                     width="100">
                 <template slot-scope="scope">
-                    <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-                    <el-button type="text" size="small">编辑</el-button>
+                    <el-button @click="edit(scope.row)" type="text" size="small">修改</el-button>
+                    <el-button @click="deleteById(scope.row)" type="text" size="small">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -52,12 +52,31 @@
 <script>
     export default {
         methods: {
-            handleClick(row) {
-                console.log(row);
+            deleteById(row) {
+                const _this = this
+                axios.delete('http://localhost:8181/userPersonnel/deleteById/' + row.user_id).then(function (resp) {
+                    _this.$alert(row.user_name + ' ' + '删除成功', '消息', {
+                        confirmButtonText: '确定',
+                        callback: action => {
+                            window.location.reload()
+                        }
+                    });
+                })
+            },
+            edit(row) {
+                // console.log(row)
+                // alert(row.user_id)
+                this.$router.push({
+                    path: '/UpdateUserPersonnel',
+                    query:{
+                        id:row.user_id
+                    }
+                })
+                // console.log(row);
             },
             changePage(currentPage) {
                 const _this = this;
-                axios.get('http://localhost:8181/userPersonnel/findAll/'+ (currentPage-1) +'/5').then(function (resp) {
+                axios.get('http://localhost:8181/userPersonnel/findAll/' + (currentPage - 1) + '/5').then(function (resp) {
                     _this.tableData = resp.data.content;
                     _this.pageSize = resp.data.size;
                     _this.total = resp.data.totalElements;
@@ -69,14 +88,12 @@
             return {
                 pageSize: '',
                 total: '',
-                tableData: [
-
-                ]
+                tableData: []
             }
         },
         created() {
             const _this = this;
-            axios.get('http://localhost:8181/userPersonnel/findAll/0/3').then(function (resp) {
+            axios.get('http://localhost:8181/userPersonnel/findAll/0/5').then(function (resp) {
                 // console.log(resp);
                 _this.tableData = resp.data.content;
                 _this.pageSize = resp.data.size;

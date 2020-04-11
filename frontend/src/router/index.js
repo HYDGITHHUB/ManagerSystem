@@ -7,6 +7,7 @@ import AddUserManagerPersonnel from "../views/AddUserManagerPersonnel";
 import FindUserSysManagerPersonnel from "../views/FindUserSysManagerPersonnel";
 import AddUserSysManagerPersonnel from "../views/AddUserSysManagerPersonnel";
 import Index from "../views/Index";
+import UpdateUserPersonnel from "../views/UpdateUserPersonnel";
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,7 @@ Vue.use(VueRouter)
       path: "/",
       name: "科研人员",
       component: Index,
+      show: true,
       redirect: "/FindUserPersonnel",
       children: [
         {
@@ -32,6 +34,7 @@ Vue.use(VueRouter)
     {
       path: "/userManagerPersonnel",
       name: "科研管理人员",
+      show: true,
       component: Index,
       children: [
         {
@@ -49,6 +52,7 @@ Vue.use(VueRouter)
     {
       path: "/userSysManagerPersonnel",
       name: "系统管理人员",
+      show: true,
       component: Index,
       children: [
         {
@@ -62,6 +66,11 @@ Vue.use(VueRouter)
           component: AddUserSysManagerPersonnel
         }
       ]
+    },
+    {
+      path: "/UpdateUserPersonnel",
+      component: UpdateUserPersonnel,
+      show: false
     }
 ]
 
