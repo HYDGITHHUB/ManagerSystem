@@ -3,7 +3,7 @@
     <el-container style="height: 500px; border: 1px solid #eee">
       <el-menu router :default-openeds="['0','1','2']">
         <el-submenu v-for="(item,index) in $router.options.routes" :index="index + ''" v-if="item.show">
-          <template slot="title"><i class="el-icon-menu"></i>{{item.name}}</template>
+          <template slot="title"><i class="el-icon-user"></i>{{item.name}}</template>
           <el-menu-item v-for="(item2,index2) in item.children" :index="item2.path"
                         :class="$route.path==item2.path?'is-active':''">{{item2.name}}</el-menu-item>
         </el-submenu>
