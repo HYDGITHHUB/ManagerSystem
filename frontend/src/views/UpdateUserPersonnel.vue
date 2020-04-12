@@ -63,16 +63,22 @@
                 this.$refs[formName].resetFields();
             }
         },
-        created() {
-            const _this = this
-            axios.get('http://localhost:8181/userPersonnel/findById/' + this.$route.query.id).then(function (resp) {
-                _this.ruleForm = resp.data
-
-                // _this.$forceUpdate()
-                // _this.$set(_this,'ruleForm',resp.data)
-                console.log("到了修改页面")
-                console.log((resp.data))
-            })
+        // async created() {
+        //     const _this = this
+        //     await axios.get('http://localhost:8181/userPersonnel/findById/' + this.$route.query.id).then(function (resp) {
+        //         _this.ruleForm = resp.data
+        //
+        //         // _this.$forceUpdate()
+        //         // _this.$set(_this,'ruleForm',resp.data)
+        //         console.log("到了修改页面")
+        //         console.log((resp.data))
+        //     })
+        // }
+        async created() {
+            const resp = await axios.get('http://localhost:8181/userPersonnel/findById/' + this.$route.query.id)
+            this.ruleForm = resp.data
+            console.log(resp.data)
+            console.log("到了修改页面")
         }
     }
 </script>
