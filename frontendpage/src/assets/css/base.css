@@ -1,0 +1,40 @@
+@import "./normalize.css";
+
+::before,
+::after{
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    user-select: none; /*禁止用户鼠标在页面上选中文字/图片等*/
+    background: #fff;
+    color: #666;
+    width: 90vw;
+    margin: 0 auto;
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
+    
+a {
+    text-decoration: none;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+.clearfix::after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}

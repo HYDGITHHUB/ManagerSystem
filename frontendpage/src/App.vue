@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <div id="home-header">你好</div>
+    <div id="home-main"></div>
+    <div id="home-footer"></div>
   </div>
 </template>
 
@@ -13,5 +16,5 @@ export default {
 </script>
 
 <style>
-
+  @import "assets/css/base.css"
 </style>
