@@ -7,14 +7,15 @@
         <div>
           <button><a href="#">登录</a></button>
           <button><a href="#">退出</a></button>
+          <button><a href="#">管理员</a></button>
         </div>
       </div>
       <div id="header-navigation">
-        <p @click="homeClick">首页</p>
-        <p @click="itemsClick">科研项目</p>
-        <p @click="resultsClick">科研成果</p>
-        <p @click="moneysClick">科研经费</p>
-        <p @click="organizationsClick">科研机构</p>
+        <p @click="homeClick" :class="{active: isHomeActive}">首页</p>
+        <p @click="itemsClick" :class="{active: isItemsActive}">科研项目</p>
+        <p @click="resultsClick" :class="{active: isResultsActive}">科研成果</p>
+        <p @click="moneysClick" :class="{active: isMoneysActive}">科研经费</p>
+        <p @click="organizationsClick" :class="{active: isOrganizationsActive}">科研机构</p>
       </div>
     </div>
     <router-view></router-view>
@@ -31,21 +32,55 @@ export default {
   name: 'app',
   components: {
   },
+  data() {
+    return {
+      isHomeActive: true,
+      isItemsActive: false,
+      isMoneysActive: false,
+      isResultsActive: false,
+      isOrganizationsActive: false
+    }
+  },
   methods: {
     homeClick() {
-      this.$router.push('/home')
+      this.$router.push('/home');
+      this.isHomeActive = true;
+      this.isItemsActive = false;
+      this.isMoneysActive = false;
+      this.isResultsActive = false;
+      this.isOrganizationsActive = false;
     },
     itemsClick() {
       this.$router.push('/items')
+      this.isHomeActive = false;
+      this.isItemsActive = true;
+      this.isMoneysActive = false;
+      this.isResultsActive = false;
+      this.isOrganizationsActive = false;
     },
     resultsClick() {
       this.$router.push('/results')
+      this.isHomeActive = false;
+      this.isItemsActive = false;
+      this.isMoneysActive = false;
+      this.isResultsActive = true;
+      this.isOrganizationsActive = false;
     },
     moneysClick() {
       this.$router.push('/moneys')
+      this.isHomeActive = false;
+      this.isItemsActive = false;
+      this.isMoneysActive = true;
+      this.isResultsActive = false;
+      this.isOrganizationsActive = false;
     },
     organizationsClick() {
       this.$router.push('/organizations')
+      this.isHomeActive = false;
+      this.isItemsActive = false;
+      this.isMoneysActive = false;
+      this.isResultsActive = false;
+      this.isOrganizationsActive = true;
     }
   }
 }
@@ -53,6 +88,10 @@ export default {
 
 <style>
   @import "assets/css/base.css";
+
+  .active {
+    color: #0c7ed9;
+  }
 
   /*footer*/
 
@@ -82,7 +121,7 @@ export default {
     line-height: 50px;
     flex-grow: 1;
     background-color: #DCDFE6;
-    color: #303133;
+    /*color: #303133;*/
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
     border-radius: 2px;
@@ -111,9 +150,9 @@ export default {
   #header-logo p {
     font-size: 32px;
     line-height: 110px;
-    color: white;
+    color: #e8ecf4;
     font-weight: bolder;
-    margin: 0 0 0 -40%;
+    margin: 0 0 0 -400px;
   }
 
   #home-header {
