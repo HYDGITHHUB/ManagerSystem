@@ -32,7 +32,7 @@
                   @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                 <el-button
                   size="mini"
-                  type="danger"
+                  type="primary"
                   @click="handleDelete(scope.$index, scope.row)">删除</el-button>
               </template>
             </el-table-column>
@@ -71,7 +71,7 @@
                   @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
                 <el-button
                   size="mini"
-                  type="danger"
+                  type="primary"
                   @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
               </template>
             </el-table-column>
@@ -110,7 +110,7 @@
                   @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
                 <el-button
                   size="mini"
-                  type="danger"
+                  type="primary"
                   @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
               </template>
             </el-table-column>
@@ -149,7 +149,7 @@
                   @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
                 <el-button
                   size="mini"
-                  type="danger"
+                  type="primary"
                   @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
               </template>
             </el-table-column>
