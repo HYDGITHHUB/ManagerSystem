@@ -1,4 +1,5 @@
 <template>
+  <div id="back-home">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm" style="width: 60%">
         <el-form-item label="编号" prop="user_id">
             <el-input v-model="ruleForm.user_id" readonly></el-input>
@@ -14,6 +15,7 @@
             <el-button @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
     </el-form>
+  </div>
 </template>
 
 <script>
@@ -82,3 +84,13 @@
         }
     }
 </script>
+
+<style>
+
+  #back-home {
+    width: 80vw;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+</style>
