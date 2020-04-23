@@ -21,6 +21,17 @@ import ResultShow from "../views/results/ResultShow";
 import ResultApply from "../views/results/ResultApply";
 import ResultExamine from "../views/results/ResultExamine";
 import ResultsMine from "../views/results/ResultsMine";
+import Login from "../views/login/Login";
+import BackHome from "../views/backstage/BackHome";
+import FindUserPersonnel from "../views/backstage/user/FindUserPersonnel";
+import UpdateUserPersonnel from "../views/backstage/user/UpdateUserPersonnel";
+import AddUserPersonnel from "../views/backstage/user/AddUserPersonnel";
+import FindUserManagerPersonnel from "../views/backstage/usermanager/FindUserManagerPersonnel";
+import UpdateUserManagerPersonnel from "../views/backstage/usermanager/UpdateUserManagerPersonnel";
+import AddUserManagerPersonnel from "../views/backstage/usermanager/AddUserManagerPersonnel";
+import FindUserSysManagerPersonnel from "../views/backstage/usersysmanager/FindUserSysManagerPersonnel";
+import UpdateUserSysManagerPersonnel from "../views/backstage/usersysmanager/UpdateUserSysManagerPersonnel";
+import AddUserSysManagerPersonnel from "../views/backstage/usersysmanager/AddUserSysManagerPersonnel";
 
 Vue.use(VueRouter)
 
@@ -29,6 +40,83 @@ Vue.use(VueRouter)
       path: '/',
       redirect: '/home',
       show: false
+    },
+    {
+      path: '/backHome',
+      component: BackHome,
+      redirect: '/findUser',
+      show: false,
+      children: [
+        {
+          path: '/UpdateUserPersonnel',
+          name: '修改',
+          component: UpdateUserPersonnel
+        },
+        {
+          path: '/UpdateUserManagerPersonnel',
+          name: '修改',
+          component: UpdateUserManagerPersonnel
+        },
+        {
+          path: '/UpdateUserSysManagerPersonnel',
+          name: '修改',
+          component: UpdateUserSysManagerPersonnel
+        },
+      ]
+    },
+    {
+      path: '/backHome',
+      name: '科研人员',
+      component: BackHome,
+      show: 'backHome',
+      redirect: '/findUser',
+      children: [
+        {
+          path: '/findUser',
+          name: '查询',
+          component: FindUserPersonnel
+        },
+        {
+          path: '/AddUser',
+          name: '添加',
+          component: AddUserPersonnel
+        }
+      ]
+    },
+    {
+      path: '/backHome',
+      name: '科研管理人员',
+      component: BackHome,
+      show: 'backHome',
+      children: [
+        {
+          path: '/findUserManager',
+          name: '查询',
+          component: FindUserManagerPersonnel
+        },
+        {
+          path: '/AddUserManager',
+          name: '添加',
+          component: AddUserManagerPersonnel
+        }
+      ]
+    },{
+      path: '/backHome',
+      name: '科研人员',
+      component: BackHome,
+      show: 'backHome',
+      children: [
+        {
+          path: '/findUserSysManager',
+          name: '查询',
+          component: FindUserSysManagerPersonnel
+        },
+        {
+          path: '/AddUserSysManager',
+          name: '添加',
+          component: AddUserSysManagerPersonnel
+        }
+      ]
     },
     {
       path: '/home',
@@ -150,6 +238,11 @@ Vue.use(VueRouter)
           component: ResultExamine
         }
       ]
+    },
+    {
+      path: '/login',
+      name: '用户登录',
+      component: Login
     }
 ]
 

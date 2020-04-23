@@ -5,9 +5,10 @@
         <img src="./assets/img/home/logo.jpg" alt="logo" style="height: 120px">
         <p>高校科研管理系统</p>
         <div>
-          <button><a href="#">登录</a></button>
-          <button><a href="#">退出</a></button>
-          <button><a href="#">管理员</a></button>
+          <Login>
+              <el-button slot="exit-button" class="login-button" type="submit">退出</el-button>
+              <el-button slot="manager-button" class="login-button" type="submit" @click="jumpBackTage">管理员</el-button>
+          </Login>
         </div>
       </div>
       <div id="header-navigation">
@@ -27,10 +28,12 @@
 </template>
 
 <script>
+  import Login from "./views/login/Login";
 
 export default {
   name: 'app',
   components: {
+    Login
   },
   data() {
     return {
@@ -81,6 +84,14 @@ export default {
       this.isMoneysActive = false;
       this.isResultsActive = false;
       this.isOrganizationsActive = true;
+    },
+    jumpBackTage() {
+      this.$router.push('/backHome');
+      this.isHomeActive = false;
+      this.isItemsActive = false;
+      this.isMoneysActive = false;
+      this.isResultsActive = false;
+      this.isOrganizationsActive = false;
     }
   }
 }
@@ -92,6 +103,16 @@ export default {
   .active {
     color: #0c7ed9;
   }
+
+  .login-button {
+    background-color:#0c7ed9;
+    color: #fff;
+    border: none;
+    height: 30px;
+    margin: 10px;
+    padding: 6px 10px
+  }
+
 
   /*footer*/
 
@@ -127,12 +148,6 @@ export default {
     border-radius: 2px;
   }
   /*logo*/
-  #header-logo button {
-    height: 30px;
-    margin: 10px;
-    background-color: #0c7ed9;
-    color: #fff;
-  }
 
   #header-logo button a {
     color: #fff;
