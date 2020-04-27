@@ -102,7 +102,7 @@ Vue.use(VueRouter)
       ]
     },{
       path: '/backHome',
-      name: '科研人员',
+      name: '系统管理员',
       component: BackHome,
       show: 'backHome',
       children: [
