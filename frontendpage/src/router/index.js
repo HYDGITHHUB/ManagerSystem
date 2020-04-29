@@ -32,6 +32,8 @@ import AddUserManagerPersonnel from "../views/backstage/usermanager/AddUserManag
 import FindUserSysManagerPersonnel from "../views/backstage/usersysmanager/FindUserSysManagerPersonnel";
 import UpdateUserSysManagerPersonnel from "../views/backstage/usersysmanager/UpdateUserSysManagerPersonnel";
 import AddUserSysManagerPersonnel from "../views/backstage/usersysmanager/AddUserSysManagerPersonnel";
+import ItemsUpdate from "../views/items/ItemsUpdate";
+
 
 Vue.use(VueRouter)
 
@@ -40,6 +42,11 @@ Vue.use(VueRouter)
       path: '/',
       redirect: '/home',
       show: false
+    },
+    {
+      path: '/itemsUpdate',
+      component: ItemsUpdate,
+      name: '项目修改'
     },
     {
       path: '/backHome',

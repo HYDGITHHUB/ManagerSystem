@@ -5,31 +5,31 @@
         :data="tableData"
         style="width: 90%">
         <el-table-column
-          prop="user_id"
+          prop="project_id"
           label="编号"
+          width="60">
+        </el-table-column>
+        <el-table-column
+          prop="project_owner"
+          label="所有者"
           width="100">
         </el-table-column>
         <el-table-column
-          prop="user_eno"
+          prop="project_time"
           label="时间"
-          width="100">
-        </el-table-column>
-        <el-table-column
-          prop="user_eno"
-          label="负责人"
-          width="100">
-        </el-table-column>
-        <el-table-column
-          prop="user_eno"
-          label="主题"
           width="250">
+        </el-table-column>
+        <el-table-column
+          prop="project_theme"
+          label="主题"
+          width="200">
         </el-table-column>
         <el-table-column
           fixed="right"
           label="操作"
           width="100">
           <template slot-scope="scope">
-            <el-button @click="edit(scope.row)" type="text" size="small">修改</el-button>
+<!--            <el-button @click="edit(scope.row)" type="text" size="small">修改</el-button>-->
             <el-button @click="deleteById(scope.row)" type="text" size="small">删除</el-button>
           </template>
         </el-table-column>
@@ -58,9 +58,10 @@
   export default {
     methods: {
       deleteById(row) {
+        console.log(row);
         const _this = this
-        axios.delete('http://localhost:8181/userPersonnel/deleteById/' + row.user_id).then(function (resp) {
-          _this.$alert(row.user_name + ' ' + '删除成功', '消息', {
+        axios.delete('http://localhost:8181/researchProject/deleteById/' + row.project_id).then(function (resp) {
+          _this.$alert(row.project_id + ' ' + '删除成功', '消息', {
             confirmButtonText: '确定',
             callback: action => {
               window.location.reload()
@@ -72,16 +73,16 @@
         // console.log(row)
         // alert(row.user_id)
         this.$router.push({
-          path: '/UpdateUserPersonnel',
+          path: '/itemsUpdate',
           query:{
-            id:row.user_id
+            id:row.project_id
           }
         })
         // console.log(row);
       },
       changePage(currentPage) {
         const _this = this;
-        axios.get('http://localhost:8181/userPersonnel/findAll/' + (currentPage - 1) + '/5').then(function (resp) {
+        axios.get('http://localhost:8181/researchProject/findAll/' + (currentPage - 1) + '/5').then(function (resp) {
           _this.tableData = resp.data.content;
           _this.pageSize = resp.data.size;
           _this.total = resp.data.totalElements;
@@ -100,7 +101,7 @@
     },
     created() {
       const _this = this;
-      axios.get('http://localhost:8181/userPersonnel/findAll/0/5').then(function (resp) {
+      axios.get('http://localhost:8181/researchProject/findAll/0/5').then(function (resp) {
         // console.log(resp);
         _this.tableData = resp.data.content;
         _this.pageSize = resp.data.size;
