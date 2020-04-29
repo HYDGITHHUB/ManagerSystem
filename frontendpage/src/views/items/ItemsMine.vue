@@ -1,5 +1,7 @@
 <template>
-  <div id="items-show">
+<div>
+  <div class="items-show">
+    <p style="color: #0c7ed9; font-weight: bolder">未审核</p>
     <el-table
       :data="tableData"
       style="width: 90%">
@@ -50,6 +52,60 @@
       @current-change="changePage">
     </el-pagination>
   </div>
+  <div class="items-show" style="margin-top: 20px">
+    <hr>
+    <p style="color: #0c7ed9; font-weight: bolder">已审核</p>
+    <el-table
+      :data="tableData"
+      style="width: 90%">
+      <el-table-column
+        prop="user_id"
+        label="编号"
+        width="60">
+      </el-table-column>
+      <el-table-column
+        prop="user_id"
+        label="申请结果"
+        width="80">
+      </el-table-column>
+      <el-table-column
+        prop="user_eno"
+        label="时间"
+        width="100">
+      </el-table-column>
+      <el-table-column
+        prop="user_eno"
+        label="主题"
+        width="350">
+      </el-table-column>
+      <el-table-column
+        align="right">
+        <template slot="header" slot-scope="scope">
+          <el-input
+            v-model="search"
+            size="mini"
+            placeholder="输入关键字搜索"/>
+        </template>
+      </el-table-column>
+      <el-table-column
+        fixed="right"
+        label="操作"
+        width="100">
+        <template slot-scope="scope">
+          <el-button @click="edit(scope.row)" type="text" size="small">修改</el-button>
+          <el-button @click="deleteById(scope.row)" type="text" size="small">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-pagination
+      background
+      layout="prev, pager, next"
+      :page-size="pageSize"
+      :total="total"
+      @current-change="changePage">
+    </el-pagination>
+  </div>
+</div>
 </template>
 
 <script>
