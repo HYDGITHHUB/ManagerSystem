@@ -156,7 +156,7 @@ Vue.use(VueRouter)
           path: '/itemsExamine',
           name: '项目审核',
           component: ItemsExamine
-        }
+        },
       ]
     },
     {

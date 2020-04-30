@@ -3,27 +3,32 @@
   <div class="items-show">
     <p style="color: #0c7ed9; font-weight: bolder">未审核</p>
     <el-table
-      :data="tableData"
+      :data="examining"
       style="width: 90%">
       <el-table-column
-        prop="user_id"
+        prop="project_id"
         label="编号"
         width="60">
       </el-table-column>
       <el-table-column
-        prop="user_id"
-        label="申请结果"
+        prop="project_time"
+        label="申请时间"
+        width="250">
+      </el-table-column>
+      <el-table-column
+        prop="project_type"
+        label="类型"
         width="80">
       </el-table-column>
       <el-table-column
-        prop="user_eno"
-        label="时间"
-        width="100">
+        prop="project_state"
+        label="状态"
+        width="80">
       </el-table-column>
       <el-table-column
-        prop="user_eno"
-        label="主题"
-        width="350">
+        prop="project_theme"
+        label="科研主题"
+        width="200">
       </el-table-column>
       <el-table-column
         align="right">
@@ -39,7 +44,7 @@
         label="操作"
         width="100">
         <template slot-scope="scope">
-          <el-button @click="edit(scope.row)" type="text" size="small">修改</el-button>
+<!--          <el-button @click="edit(scope.row)" type="text" size="small">修改</el-button>-->
           <el-button @click="deleteById(scope.row)" type="text" size="small">删除</el-button>
         </template>
       </el-table-column>
@@ -56,27 +61,32 @@
     <hr>
     <p style="color: #0c7ed9; font-weight: bolder">已审核</p>
     <el-table
-      :data="tableData"
+      :data="examined"
       style="width: 90%">
       <el-table-column
-        prop="user_id"
+        prop="project_id"
         label="编号"
         width="60">
       </el-table-column>
       <el-table-column
-        prop="user_id"
-        label="申请结果"
+        prop="project_time"
+        label="申请时间"
+        width="250">
+      </el-table-column>
+      <el-table-column
+        prop="project_type"
+        label="类型"
         width="80">
       </el-table-column>
       <el-table-column
-        prop="user_eno"
-        label="时间"
-        width="100">
+        prop="project_state"
+        label="状态"
+        width="80">
       </el-table-column>
       <el-table-column
-        prop="user_eno"
-        label="主题"
-        width="350">
+        prop="project_theme"
+        label="科研主题"
+        width="200">
       </el-table-column>
       <el-table-column
         align="right">
@@ -92,7 +102,7 @@
         label="操作"
         width="100">
         <template slot-scope="scope">
-          <el-button @click="edit(scope.row)" type="text" size="small">修改</el-button>
+          <!--          <el-button @click="edit(scope.row)" type="text" size="small">修改</el-button>-->
           <el-button @click="deleteById(scope.row)" type="text" size="small">删除</el-button>
         </template>
       </el-table-column>
@@ -112,9 +122,10 @@
   export default {
     methods: {
       deleteById(row) {
+        console.log(row);
         const _this = this
-        axios.delete('http://localhost:8181/userPersonnel/deleteById/' + row.user_id).then(function (resp) {
-          _this.$alert(row.user_name + ' ' + '删除成功', '消息', {
+        axios.delete('http://localhost:8181/researchProject/deleteById/' + row.project_id).then(function (resp) {
+          _this.$alert(row.project_theme + ' ' + '删除成功', '消息', {
             confirmButtonText: '确定',
             callback: action => {
               window.location.reload()
@@ -122,21 +133,21 @@
           });
         })
       },
-      edit(row) {
-        // console.log(row)
-        // alert(row.user_id)
-        this.$router.push({
-          path: '/UpdateUserPersonnel',
-          query:{
-            id:row.user_id
-          }
-        })
-        // console.log(row);
-      },
+      // edit(row) {
+      //   // console.log(row)
+      //   // alert(row.user_id)
+      //   this.$router.push({
+      //     path: '/UpdateUserPersonnel',
+      //     query:{
+      //       id:row.user_id
+      //     }
+      //   })
+      //   // console.log(row);
+      // },
       changePage(currentPage) {
         const _this = this;
-        axios.get('http://localhost:8181/userPersonnel/findAll/' + (currentPage - 1) + '/5').then(function (resp) {
-          _this.tableData = resp.data.content;
+        axios.get('http://localhost:8181/researchProject/findAll/' + (currentPage - 1) + '/5').then(function (resp) {
+          _this.examining = resp.data.content;
           _this.pageSize = resp.data.size;
           _this.total = resp.data.totalElements;
         })
@@ -147,18 +158,25 @@
       return {
         pageSize: '',
         total: '',
-        tableData: [],
+        examining: [],
+        examined: [],
         search: ''
       }
     },
     created() {
       const _this = this;
-      axios.get('http://localhost:8181/userPersonnel/findAll/0/5').then(function (resp) {
-        // console.log(resp);
-        _this.tableData = resp.data.content;
+      axios.get('http://localhost:8181/researchProject/findAll/0/5').then(function (resp) {
+        console.log(resp);
+        _this.examining = resp.data.content;
         _this.pageSize = resp.data.size;
         _this.total = resp.data.totalElements;
-      })
+      }),
+        axios.get('http://localhost:8181/researchProjected/findAll/0/5').then(function (resp) {
+          console.log(resp);
+          _this.examined = resp.data.content;
+          _this.pageSize = resp.data.size;
+          _this.total = resp.data.totalElements;
+        })
     }
   }
 </script>

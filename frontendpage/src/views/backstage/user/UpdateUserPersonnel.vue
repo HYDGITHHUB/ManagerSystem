@@ -79,8 +79,8 @@
         async created() {
             const resp = await axios.get('http://localhost:8181/userPersonnel/findById/' + this.$route.query.id)
             this.ruleForm = resp.data
-            console.log(resp.data)
-            console.log("到了修改页面")
+            // console.log(resp.data)
+            // console.log("到了修改页面")
         }
     }
 </script>
