@@ -1,12 +1,11 @@
 package com.study.backend.controller;
 
-import com.study.backend.entity.ResearchProject;
 import com.study.backend.entity.ResearchProjected;
 import com.study.backend.repository.ResearchProjectedRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.repository.Query;
+//import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

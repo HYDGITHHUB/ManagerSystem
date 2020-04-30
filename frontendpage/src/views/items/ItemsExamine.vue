@@ -31,7 +31,8 @@
           <template slot-scope="scope">
             <el-button @click="examine(scope.row)" type="text" size="small">审核</el-button>
             <el-dialog title="审核信息" :visible.sync="dialogTableVisible">
-              <el-form :model="findTableData" ref="findTableData" label-width="150px" class="demo-ruleForm" style="width: 80%;margin: 0 auto">
+              <el-form :model="findTableData" ref="findTableData" label-width="150px" class="demo-ruleForm"
+                       style="width: 80%;margin: 0 auto">
                 <el-form-item label="编号" prop="project_id">
                   <el-input v-model="findTableData.project_id" readonly></el-input>
                 </el-form-item>
@@ -57,7 +58,7 @@
                   <el-input v-model="findTableData.project_prospect" readonly></el-input>
                 </el-form-item>
                 <el-form-item>
-                  <el-button type="primary" @click="submitForm('ruleForm')">同意</el-button>
+                  <el-button type="primary" @click="submitForm('findTableData')">同意</el-button>
                   <el-button type="primary" @click="" style="margin-left: 150px">取消</el-button>
                 </el-form-item>
               </el-form>
@@ -88,12 +89,24 @@
 
 <script>
   export default {
+    data() {
+      return {
+        pageSize: '',
+        total: '',
+        tableData: [],
+        search: '',
+        findTableData: {
+          project_state: '已审核'
+        },
+        dialogTableVisible: false
+      }
+    },
     methods: {
       deleteById(row) {
         console.log(row);
         const _this = this
         axios.delete('http://localhost:8181/researchProject/deleteById/' + row.project_id).then(function (resp) {
-          _this.$alert(row.project_id + ' ' + '删除成功', '消息', {
+          _this.$alert(row.project_theme + ' ' + '删除成功', '消息', {
             confirmButtonText: '确定',
             callback: action => {
               window.location.reload()
@@ -101,17 +114,17 @@
           });
         })
       },
-      edit(row) {
-        // console.log(row)
-        // alert(row.user_id)
-        this.$router.push({
-          path: '/itemsUpdate',
-          query: {
-            id: row.project_id
-          }
-        })
-        // console.log(row);
-      },
+      // edit(row) {
+      //   // console.log(row)
+      //   // alert(row.user_id)
+      //   this.$router.push({
+      //     path: '/itemsUpdate',
+      //     query: {
+      //       id: row.project_id
+      //     }
+      //   })
+      //   // console.log(row);
+      // },
       changePage(currentPage) {
         const _this = this;
         axios.get('http://localhost:8181/researchProject/findAll/' + (currentPage - 1) + '/5').then(function (resp) {
@@ -122,6 +135,8 @@
       },
       examine(row) {
         // console.log(row);
+        console.log("这是findTableDate")
+        console.log(this.findTableData);
         const _this = this;
         _this.dialogTableVisible = true;
         axios.get("http://localhost:8181/researchProject/findById/" + row.project_id).then(function (resp) {
@@ -130,17 +145,30 @@
           console.log(resp);
         })
       },
-    },
-
-    data() {
-      return {
-        pageSize: '',
-        total: '',
-        tableData: [],
-        search: '',
-        findTableData: {
-        },
-        dialogTableVisible: false
+      submitForm(formName) {
+        const _this = this;
+        _this.findTableData.project_state = '已审核'
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            axios.post('http://localhost:8181/researchProjected/save', _this.findTableData).then(function (resp) {
+              if (resp.data == 'success') {
+                _this.$alert(_this.findTableData.project_theme + ' ' + '添加成功', '消息', {
+                  confirmButtonText: '确定',
+                  callback: action => {
+                    _this.$router.push('/itemsShow')
+                  }
+                });
+                axios.delete('http://localhost:8181/researchProject/deleteById/' + _this.findTableData.project_id).then(function (resp) {
+                  window.location.reload()
+                  console.log("成功删除")
+                })
+              }
+            })
+          } else {
+            // console.log('error submit!!');
+            return false;
+          }
+        });
       }
     },
     created() {
