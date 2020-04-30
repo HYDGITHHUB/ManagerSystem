@@ -67,8 +67,8 @@
             const _this = this
             axios.get('http://localhost:8181/userManagerPersonnel/findById/' + this.$route.query.id).then(function (resp) {
                 _this.ruleForm = resp.data
-                console.log("到了修改页面")
-                console.log((resp.data))
+                // console.log("到了修改页面")
+                // console.log((resp.data))
             })
         }
     }

@@ -11,7 +11,7 @@ import java.util.Date;
 @Entity
 @Data
 @EntityListeners(AuditingEntityListener.class)
-public class ResearchProject {
+public class ResearchProjected {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,7 @@ public class ResearchProject {
     @NotNull
     private String project_owner;
 
-    private String project_state = "未审核";
+    private String project_state = "已审核";
 
     @CreatedDate
     private Date project_time;
