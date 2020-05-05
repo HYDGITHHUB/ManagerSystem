@@ -15,12 +15,23 @@ public class ResearchProjectedHandler {
     @Autowired
     private ResearchProjectedRepository researchProjectedRepository;
 
+    /**
+     *
+     * @param page
+     * @param size
+     * @return
+     */
     @GetMapping("/findAll/{page}/{size}")
     public Page<ResearchProjected> findAll(@PathVariable("page") Integer page,@PathVariable("size") Integer size) {
         PageRequest pageRequest = PageRequest.of(page,size);
         return researchProjectedRepository.findAll(pageRequest);
     }
 
+    /**
+     *
+     * @param researchProjected
+     * @return
+     */
     @PostMapping("/save")
     public String save(@RequestBody ResearchProjected researchProjected) {
         ResearchProjected result = researchProjectedRepository.save(researchProjected);
@@ -36,6 +47,12 @@ public class ResearchProjectedHandler {
         return researchProjectedRepository.findById(id).get();
     }
 
+    /**
+     *
+     * @param researchProjected
+     * @return
+     */
+
     @PutMapping("/update")
     public String update(@RequestBody ResearchProjected researchProjected) {
         ResearchProjected result = researchProjectedRepository.save(researchProjected);
@@ -45,6 +62,11 @@ public class ResearchProjectedHandler {
             return "error";
         }
     }
+
+    /**
+     *
+     * @param id
+     */
 
     @DeleteMapping("/deleteById/{id}")
     public void deleteById(@PathVariable("id") Integer id) {
@@ -58,4 +80,6 @@ public class ResearchProjectedHandler {
 //    public void examine(@PathVariable("id") Integer id) {
 //
 //    }
+
+
 }
