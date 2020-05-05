@@ -28,7 +28,7 @@
           fixed="right"
           label="操作"
           width="100">
-          <template slot-scope="scope">
+          <template slot-scope="scope"  >
             <el-button @click="examine(scope.row)" type="text" size="small">审核</el-button>
             <el-dialog title="审核信息" :visible.sync="dialogTableVisible">
               <el-form :model="findTableData" ref="findTableData" label-width="150px" class="demo-ruleForm"
@@ -59,7 +59,7 @@
                 </el-form-item>
                 <el-form-item>
                   <el-button type="primary" @click="submitForm('findTableData')">同意</el-button>
-                  <el-button type="primary" @click="" style="margin-left: 150px">取消</el-button>
+                  <el-button type="primary" @click="cancel" style="margin-left: 150px">取消</el-button>
                 </el-form-item>
               </el-form>
             </el-dialog>
@@ -102,6 +102,9 @@
       }
     },
     methods: {
+      cancel() {
+        window.location.reload();
+      },
       deleteById(row) {
         console.log(row);
         const _this = this
@@ -135,14 +138,14 @@
       },
       examine(row) {
         // console.log(row);
-        console.log("这是findTableDate")
-        console.log(this.findTableData);
+        // console.log("这是findTableDate")
+        // console.log(this.findTableData);
         const _this = this;
         _this.dialogTableVisible = true;
         axios.get("http://localhost:8181/researchProject/findById/" + row.project_id).then(function (resp) {
           _this.findTableData = resp.data
-          console.log(_this.findTableData);
-          console.log(resp);
+          // console.log(_this.findTableData);
+          // console.log(resp);
         })
       },
       submitForm(formName) {
