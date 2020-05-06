@@ -63,7 +63,7 @@
                 </el-form-item>
               </el-form>
             </el-dialog>
-            <el-button @click="deleteById(scope.row)" type="text" size="small">否决</el-button>
+            <el-button @click="deleteById(scope.row)" type="text" size="small" style="margin-left: 10px">否决</el-button>
           </template>
         </el-table-column>
         <el-table-column
@@ -106,16 +106,26 @@
         window.location.reload();
       },
       deleteById(row) {
-        console.log(row);
         const _this = this
-        axios.delete('http://localhost:8181/researchProject/deleteById/' + row.project_id).then(function (resp) {
-          _this.$alert(row.project_theme + ' ' + '删除成功', '消息', {
-            confirmButtonText: '确定',
-            callback: action => {
-              window.location.reload()
-            }
+        this.$confirm('是否确认否决该项申请?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          axios.delete('http://localhost:8181/researchProject/deleteById/' + row.project_id).then(function (resp) {
+            _this.$alert(row.project_theme + ' ' + '已否决', '消息', {
+              confirmButtonText: '确定',
+              callback: action => {
+                window.location.reload()
+              }
+            });
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
           });
-        })
+        });
       },
       // edit(row) {
       //   // console.log(row)
