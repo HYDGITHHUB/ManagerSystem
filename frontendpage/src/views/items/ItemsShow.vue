@@ -58,16 +58,26 @@
   export default {
     methods: {
       deleteById(row) {
-        console.log(row);
         const _this = this
-        axios.delete('http://localhost:8181/researchProjected/deleteById/' + row.project_id).then(function (resp) {
-          _this.$alert(row.project_theme + ' ' + '删除成功', '消息', {
-            confirmButtonText: '确定',
-            callback: action => {
-              window.location.reload()
-            }
+        this.$confirm('此操作将永久删除该项内容, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          axios.delete('http://localhost:8181/researchProjected/deleteById/' + row.project_id).then(function (resp) {
+            _this.$alert(row.project_theme + ' ' + '删除成功', '消息', {
+              confirmButtonText: '确定',
+              callback: action => {
+                window.location.reload()
+              }
+            });
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
           });
-        })
+        });
       },
       edit(row) {
         // console.log(row)
