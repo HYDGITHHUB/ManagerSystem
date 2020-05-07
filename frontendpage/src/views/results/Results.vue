@@ -8,7 +8,6 @@
                         :class="$route.path==item2.path?'is-active':''">{{item2.name}}</el-menu-item>
         </el-submenu>
       </el-menu>
-
       <el-container>
         <el-main>
           <router-view></router-view>
