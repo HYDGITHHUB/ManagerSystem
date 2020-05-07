@@ -31,7 +31,7 @@
           <template slot-scope="scope"  >
             <el-button @click="examine(scope.row)" type="text" size="small">审核</el-button>
             <el-dialog title="审核信息" :visible.sync="dialogTableVisible">
-              <el-form :model="findTableData" ref="findTableData" label-width="150px" class="demo-ruleForm"
+              <el-form :model="findTableData" :rules="rules"ref="findTableData" label-width="150px" class="demo-ruleForm"
                        style="width: 80%;margin: 0 auto">
                 <el-form-item label="编号" prop="project_id">
                   <el-input v-model="findTableData.project_id" readonly></el-input>
@@ -45,7 +45,7 @@
                 <el-form-item label="额度" prop="project_money">
                   <el-input v-model="findTableData.project_money" readonly></el-input>
                 </el-form-item>
-                <el-form-item label="额度修改" prop="project_moneyed">
+                <el-form-item label="实拨额度" prop="project_moneyed">
                   <el-input v-model="findTableData.project_moneyed"></el-input>
                 </el-form-item>
                 <el-form-item label="类型" prop="project_type">
@@ -103,7 +103,12 @@
         search: '',
         findTableData: {
         },
-        dialogTableVisible: false
+        dialogTableVisible: false,
+        rules: {
+          project_moneyed: [
+            {required: true, message: '请输入实拨额度', trigger: 'blur'},
+          ]
+        }
       }
     },
     methods: {
