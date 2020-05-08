@@ -34,10 +34,6 @@ import UpdateUserSysManagerPersonnel from "../views/backstage/usersysmanager/Upd
 import AddUserSysManagerPersonnel from "../views/backstage/usersysmanager/AddUserSysManagerPersonnel";
 import ItemsUpdate from "../views/items/ItemsUpdate";
 import ResultsExamining from "../views/results/ResultsExamining";
-import Monograph from "../views/results/Monograph";
-import Patent from "../views/results/Patent";
-import Press from "../views/results/Press";
-import Technology from "../views/results/Technology";
 
 Vue.use(VueRouter)
 
@@ -252,28 +248,6 @@ Vue.use(VueRouter)
         {
           path: '/resultsExamining',
           component: ResultsExamining,
-          children: [
-            {
-              path: '/monograph',
-              name: '学术专著',
-              component: Monograph
-            },
-            {
-              path: '/press',
-              name: '报刊发表',
-              component: Press
-            },
-            {
-              path: '/patent',
-              name: '专利发表',
-              component: Patent
-            },
-            {
-              path: '/technology',
-              name: '技术研发',
-              component: Technology
-            },
-          ]
         }
       ]
     },

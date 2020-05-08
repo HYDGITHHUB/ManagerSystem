@@ -11,16 +11,6 @@
           style="width: 300px">
         </el-input>
       </el-form-item>
-<!--      <el-form-item label="状态" prop="project_state">-->
-<!--        <el-input-->
-<!--          type="text"-->
-<!--          placeholder="请输入内容"-->
-<!--          v-model="ruleForm.project_state"-->
-<!--          maxlength="20"-->
-<!--          show-word-limit-->
-<!--          style="width: 300px">-->
-<!--        </el-input>-->
-<!--      </el-form-item>-->
       <el-form-item label="项目主题" prop="project_theme">
         <el-input
           type="text"
@@ -88,18 +78,18 @@
           // project_state: '未审核'
         },
         rules: {
-          // projectItem: [
-          //   { required: true, message: '请输入内容', trigger: 'blur' }
-          // ],
-          // projectProspect: [
-          //   { required: true, message: '请输入内容', trigger: 'blur' }
-          // ],
-          // projectIntro: [
-          //   { required: true, message: '请输入内容', trigger: 'blur' }
-          // ],
-          // projectGrade: [
-          //   { required: true, message: '请选择', trigger: 'blur' }
-          // ],
+          project_owner: [
+            { required: true, message: '请输入内容', trigger: 'blur' }
+          ],
+          project_theme: [
+            { required: true, message: '请输入内容', trigger: 'blur' }
+          ],
+          project_prospect: [
+            { required: true, message: '请输入内容', trigger: 'blur' }
+          ],
+          project_describe: [
+            { required: true, message: '请选择', trigger: 'blur' }
+          ],
         },
       };
     },
@@ -110,7 +100,7 @@
           if (valid) {
             axios.post('http://localhost:8181/researchProject/save',this.ruleForm).then(function (resp) {
               if (resp.data == 'success') {
-                // console.log(_this.ruleForm);
+                console.log(_this.ruleForm);
                 _this.$alert("申请提交成功！")
               }
             })
