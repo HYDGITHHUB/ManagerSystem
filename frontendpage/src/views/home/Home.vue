@@ -4,7 +4,7 @@
       <div id="left-items" class="left-style">
         <div class="main-tag">
           <p>优秀科研项目</p>
-          <a href="#">>>更多</a>
+          <a href="http://localhost:8080/itemsShow">>>更多</a>
         </div>
         <div class="main-content">
           <el-table
@@ -12,11 +12,11 @@
             style="width: 100%">
             <el-table-column
               label="日期"
-              prop="date">
+              prop="project_time">
             </el-table-column>
             <el-table-column
               label="标题"
-              prop="name">
+              prop="project_theme">
             </el-table-column>
             <el-table-column
               align="right">
@@ -27,9 +27,6 @@
                   placeholder="输入关键字搜索"/>
               </template>
               <template slot-scope="scope">
-                <el-button
-                  size="mini"
-                  @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                 <el-button
                   size="mini"
                   type="primary"
@@ -42,8 +39,8 @@
       </div>
       <div id="left-results" class="left-style">
         <div class="main-tag">
-          <p>优秀科研成果</p>
-          <a href="#">>>更多</a>
+          <p>优秀科研项目</p>
+          <a href="http://localhost:8080/itemsShow">>>更多</a>
         </div>
         <div class="main-content">
           <el-table
@@ -51,11 +48,11 @@
             style="width: 100%">
             <el-table-column
               label="日期"
-              prop="date">
+              prop="project_time">
             </el-table-column>
             <el-table-column
               label="标题"
-              prop="name">
+              prop="project_theme">
             </el-table-column>
             <el-table-column
               align="right">
@@ -68,11 +65,8 @@
               <template slot-scope="scope">
                 <el-button
                   size="mini"
-                  @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-                <el-button
-                  size="mini"
                   type="primary"
-                  @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+                  @click="handleDelete(scope.$index, scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -81,8 +75,8 @@
       </div>
       <div id="left-money" class="left-style">
         <div class="main-tag">
-          <p>科研经费详情</p>
-          <a href="#">>>更多</a>
+          <p>优秀科研项目</p>
+          <a href="http://localhost:8080/itemsShow">>>更多</a>
         </div>
         <div class="main-content">
           <el-table
@@ -90,11 +84,11 @@
             style="width: 100%">
             <el-table-column
               label="日期"
-              prop="date">
+              prop="project_time">
             </el-table-column>
             <el-table-column
               label="标题"
-              prop="name">
+              prop="project_theme">
             </el-table-column>
             <el-table-column
               align="right">
@@ -107,11 +101,8 @@
               <template slot-scope="scope">
                 <el-button
                   size="mini"
-                  @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-                <el-button
-                  size="mini"
                   type="primary"
-                  @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+                  @click="handleDelete(scope.$index, scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -120,8 +111,8 @@
       </div>
       <div id="left-orgies" class="left-style">
         <div class="main-tag">
-          <p>科研机构一览</p>
-          <a href="#">>>更多</a>
+          <p>优秀科研项目</p>
+          <a href="http://localhost:8080/itemsShow">>>更多</a>
         </div>
         <div class="main-content">
           <el-table
@@ -129,11 +120,11 @@
             style="width: 100%">
             <el-table-column
               label="日期"
-              prop="date">
+              prop="project_time">
             </el-table-column>
             <el-table-column
               label="标题"
-              prop="name">
+              prop="project_theme">
             </el-table-column>
             <el-table-column
               align="right">
@@ -146,11 +137,8 @@
               <template slot-scope="scope">
                 <el-button
                   size="mini"
-                  @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-                <el-button
-                  size="mini"
                   type="primary"
-                  @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+                  @click="handleDelete(scope.$index, scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -204,35 +192,7 @@
               '关于我校2020年大三实习时间',
               '关于我校2020年期末考试安排'
             ],
-            tableData: [{
-              date: '2016-05-02',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1518 弄'
-            }, {
-              date: '2016-05-04',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1517 弄'
-            }, {
-              date: '2016-05-01',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1519 弄'
-            }, {
-              date: '2016-05-03',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1516 弄'
-            }, {
-              date: '2016-05-03',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1516 弄'
-            }, {
-              date: '2016-05-03',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1516 弄'
-            }, {
-              date: '2016-05-03',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1516 弄'
-            }],
+            tableData: [],
             search: ''
           }
         },
@@ -243,7 +203,14 @@
           handleDelete(index, row) {
             console.log(index, row);
           }
-        }
+        },
+      created() {
+        const _this = this;
+        axios.get('http://localhost:8181/researchProjected/findAll/0/5').then(function (resp) {
+          // console.log(resp);
+          _this.tableData = resp.data.content;
+        })
+      }
     }
 </script>
 

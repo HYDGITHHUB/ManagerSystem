@@ -60,7 +60,6 @@
         :total="totaled"
         @current-change="changePaged">
       </el-pagination>
-      <p style="margin-top: 30px;font-size: 13px;color: #666666">*注：实际额度为空则通审额度为预期额度</p>
     </div>
   </div>
 </template>

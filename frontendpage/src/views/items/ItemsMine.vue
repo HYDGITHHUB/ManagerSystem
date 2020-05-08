@@ -28,7 +28,7 @@
         <el-table-column
           prop="project_theme"
           label="科研主题"
-          width="200">
+          width="150">
         </el-table-column>
         <el-table-column
           align="right">
@@ -86,7 +86,7 @@
         <el-table-column
           prop="project_theme"
           label="科研主题"
-          width="200">
+          width="150">
         </el-table-column>
         <el-table-column
           align="right">
