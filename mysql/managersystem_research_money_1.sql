@@ -1,1 +1,0 @@
-insert into managersystem.research_money (project_id, project_owner, project_state, project_time, project_theme, project_type, project_grade, project_prospect, project_describe, project_money, project_moneyed) values (16, '张三', '已审核', '2020-04-30 15:22:44', '水化油', '应用性', '国家级', '无限循环', '清洁能源', 50000, null);
