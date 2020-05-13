@@ -1,1 +1,0 @@
-INSERT INTO managersystem.research_project (project_id, project_owner, project_state, project_time, project_theme, project_type, project_grade, project_prospect, project_describe, project_money) VALUES (16, '韩勇', '未审核', '2020-05-05 18:13:39', '与外天空文明的交流', '经验研究性', '校级', '与他人沟通，了解他人的故事', '沟通是解决问题的最好方式', null);
