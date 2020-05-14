@@ -2,7 +2,7 @@
   <div>
     <div class="items-show" style="margin-top: 20px">
       <el-table
-        :data="examined"
+        :data="examined.filter(data => !search || data.project_theme.toLowerCase().includes(search.toLowerCase()))"
         style="width: 100%">
         <el-table-column
           prop="project_id"
@@ -46,7 +46,7 @@
             <el-input
               v-model="search"
               size="mini"
-              placeholder="输入关键字搜索"/>
+              placeholder="输入主题关键字搜索"/>
           </template>
         </el-table-column>
         <el-table-column

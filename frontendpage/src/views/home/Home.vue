@@ -8,7 +8,7 @@
         </div>
         <div class="main-content">
           <el-table
-            :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+            :data="tableData.filter(data => !search_items || data.project_theme.toLowerCase().includes(search_items.toLowerCase()))"
             style="width: 100%">
             <el-table-column
               label="日期"
@@ -22,15 +22,9 @@
               align="right">
               <template slot="header" slot-scope="scope">
                 <el-input
-                  v-model="search"
+                  v-model="search_items"
                   size="mini"
                   placeholder="输入关键字搜索"/>
-              </template>
-              <template slot-scope="scope">
-                <el-button
-                  size="mini"
-                  type="primary"
-                  @click="handleDelete(scope.$index, scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -39,12 +33,12 @@
       </div>
       <div id="left-results" class="left-style">
         <div class="main-tag">
-          <p>优秀科研项目</p>
-          <a href="http://localhost:8080/itemsShow">>>更多</a>
+          <p>优秀科研成果</p>
+          <a href="http://localhost:8080/resultsShow">>>更多</a>
         </div>
         <div class="main-content">
           <el-table
-            :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+            :data="tableDataResults.filter(data => !search_results || data.project_theme.toLowerCase().includes(search_results.toLowerCase()))"
             style="width: 100%">
             <el-table-column
               label="日期"
@@ -58,15 +52,9 @@
               align="right">
               <template slot="header" slot-scope="scope">
                 <el-input
-                  v-model="search"
+                  v-model="search_results"
                   size="mini"
                   placeholder="输入关键字搜索"/>
-              </template>
-              <template slot-scope="scope">
-                <el-button
-                  size="mini"
-                  type="primary"
-                  @click="handleDelete(scope.$index, scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -75,34 +63,28 @@
       </div>
       <div id="left-money" class="left-style">
         <div class="main-tag">
-          <p>优秀科研项目</p>
-          <a href="http://localhost:8080/itemsShow">>>更多</a>
+          <p>科研经费拨出详情</p>
+          <a href="http://localhost:8080/moneysShow">>>更多</a>
         </div>
         <div class="main-content">
           <el-table
-            :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+            :data="tableDataMoneys.filter(data => !search_moneys || data.project_theme.toLowerCase().includes(search_moneys.toLowerCase()))"
             style="width: 100%">
-            <el-table-column
-              label="日期"
-              prop="project_time">
-            </el-table-column>
             <el-table-column
               label="标题"
               prop="project_theme">
             </el-table-column>
             <el-table-column
+              label="经费"
+              prop="project_moneyed">
+            </el-table-column>
+            <el-table-column
               align="right">
               <template slot="header" slot-scope="scope">
                 <el-input
-                  v-model="search"
+                  v-model="search_moneys"
                   size="mini"
                   placeholder="输入关键字搜索"/>
-              </template>
-              <template slot-scope="scope">
-                <el-button
-                  size="mini"
-                  type="primary"
-                  @click="handleDelete(scope.$index, scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -111,12 +93,12 @@
       </div>
       <div id="left-orgies" class="left-style">
         <div class="main-tag">
-          <p>优秀科研项目</p>
-          <a href="http://localhost:8080/itemsShow">>>更多</a>
+          <p>优秀科研机构</p>
+          <a href="#">>>更多</a>
         </div>
         <div class="main-content">
           <el-table
-            :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+            :data="tableDataOrganizations.filter(data => !search_organizations || data.project_theme.toLowerCase().includes(search_organizations.toLowerCase()))"
             style="width: 100%">
             <el-table-column
               label="日期"
@@ -130,15 +112,9 @@
               align="right">
               <template slot="header" slot-scope="scope">
                 <el-input
-                  v-model="search"
+                  v-model="search_organizations"
                   size="mini"
                   placeholder="输入关键字搜索"/>
-              </template>
-              <template slot-scope="scope">
-                <el-button
-                  size="mini"
-                  type="primary"
-                  @click="handleDelete(scope.$index, scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -193,23 +169,57 @@
               '关于我校2020年期末考试安排'
             ],
             tableData: [],
-            search: ''
+            tableDataResults: [],
+            tableDataMoneys: [],
+            tableDataOrganizations: [],
+            search_items: '',
+            search_results: '',
+            search_moneys: '',
+            search_organizations: ''
           }
         },
         methods: {
-          handleEdit(index, row) {
-            console.log(index, row);
+          deletedById(row) {
+            const _this = this
+            this.$confirm('此操作将永久删除该项内容, 是否继续?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(() => {
+              axios.delete('http://localhost:8181/researchMoneyed/deleteById/' + row.project_id).then(function (resp) {
+                _this.$alert(row.project_theme + ' ' + '删除成功', '消息', {
+                  confirmButtonText: '确定',
+                  callback: action => {
+                    window.location.reload()
+                  }
+                });
+              })
+            }).catch(() => {
+              this.$message({
+                type: 'info',
+                message: '已取消删除'
+              });
+            });
           },
-          handleDelete(index, row) {
-            console.log(index, row);
-          }
         },
       created() {
         const _this = this;
         axios.get('http://localhost:8181/researchProjected/findAll/0/5').then(function (resp) {
           // console.log(resp);
           _this.tableData = resp.data.content;
-        })
+        });
+        axios.get('http://localhost:8181/researchResulted/findAll/0/5').then(function (resp) {
+          // console.log(resp);
+          _this.tableDataResults = resp.data.content;
+        });
+        axios.get('http://localhost:8181/researchMoneyed/findAll/0/5').then(function (resp) {
+          // console.log(resp);
+          _this.tableDataMoneys = resp.data.content;
+        });
+        axios.get('http://localhost:8181/researchProjected/findAll/0/5').then(function (resp) {
+          // console.log(resp);
+          _this.tableDataOrganizations = resp.data.content;
+        });
       }
     }
 </script>
@@ -226,6 +236,12 @@
   .main-tag {
     display: flex;
     justify-content: space-between;
+  }
+
+  .main-tag p{
+    color: #0c7ed9;
+    cursor: pointer;
+    font-size: 20px;
   }
   /*left*/
   #main-left p{
@@ -266,6 +282,7 @@
   .right-content ul li{
     line-height: 25px;
     cursor: pointer;
+    margin-top: 10px;
   }
 
 </style>

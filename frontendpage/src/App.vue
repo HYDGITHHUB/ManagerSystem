@@ -6,8 +6,8 @@
         <p>高校科研管理系统</p>
         <div>
           <Login>
-              <el-button slot="exit-button" class="login-button" type="submit">退出</el-button>
-              <el-button slot="manager-button" class="login-button" type="submit" @click="jumpBackTage">管理员</el-button>
+            <el-button slot="exit-button" class="login-button" type="submit">退出</el-button>
+            <el-button slot="manager-button" class="login-button" type="submit" @click="jumpBackPage">管理员</el-button>
           </Login>
         </div>
       </div>
@@ -17,11 +17,11 @@
         <p @click="resultsClick" :class="{active: isResultsActive}">科研成果</p>
         <p @click="moneysClick" :class="{active: isMoneysActive}">科研经费</p>
         <p @click="organizationsClick" :class="{active: isOrganizationsActive}">科研机构</p>
-      </div>
+        </div>
     </div>
     <router-view></router-view>
     <div id="home-footer">
-      <p style="line-height: 80px">ALL CONTENTS COPYRIGHT © CHENG DU POLYTECHNIC 2007-2020. ALL RIGHTS RESERVED.</p>
+      <p style="line-height: 80px">ALL CONTENTS COPYRIGHT  CHENG DU POLYTECHNIC 2007-2020. ALL RIGHTS RESERVED.</p>
       <p>蜀ICP备11016755号| 川公网安备 51019002001345号　|　信息中心制作技术支持　|　51La |</p>
     </div>
   </div>
@@ -30,71 +30,95 @@
 <script>
   import Login from "./views/login/Login";
 
-export default {
-  name: 'app',
-  components: {
-    Login
-  },
-  data() {
-    return {
-      isHomeActive: true,
-      isItemsActive: false,
-      isMoneysActive: false,
-      isResultsActive: false,
-      isOrganizationsActive: false
-    }
-  },
-  methods: {
-    homeClick() {
-      this.$router.push('/home');
-      this.isHomeActive = true;
-      this.isItemsActive = false;
-      this.isMoneysActive = false;
-      this.isResultsActive = false;
-      this.isOrganizationsActive = false;
+  export default {
+    name: 'app',
+    components: {
+      Login
     },
-    itemsClick() {
-      this.$router.push('/items')
-      this.isHomeActive = false;
-      this.isItemsActive = true;
-      this.isMoneysActive = false;
-      this.isResultsActive = false;
-      this.isOrganizationsActive = false;
+    computed: {
+      // isActive() {
+      //   return this.$route.path.indexOf(this.path1) !== -1
+      // }
     },
-    resultsClick() {
-      this.$router.push('/results')
-      this.isHomeActive = false;
-      this.isItemsActive = false;
-      this.isMoneysActive = false;
-      this.isResultsActive = true;
-      this.isOrganizationsActive = false;
+    data() {
+      return {
+        path1: '/home',
+        path2: '/itemsShow',
+        path3: '/resultsShow',
+        path4: '/moneysShow',
+        path5: '/organizationsShow',
+        path6: '/findUser',
+
+        isHomeActive: '',
+        isItemsActive: '',
+        isMoneysActive: '',
+        isResultsActive: '',
+        isOrganizationsActive: ''
+      }
     },
-    moneysClick() {
-      this.$router.push('/moneys')
-      this.isHomeActive = false;
-      this.isItemsActive = false;
-      this.isMoneysActive = true;
-      this.isResultsActive = false;
-      this.isOrganizationsActive = false;
-    },
-    organizationsClick() {
-      this.$router.push('/organizations')
-      this.isHomeActive = false;
-      this.isItemsActive = false;
-      this.isMoneysActive = false;
-      this.isResultsActive = false;
-      this.isOrganizationsActive = true;
-    },
-    jumpBackTage() {
-      this.$router.push('/backHome');
-      this.isHomeActive = false;
-      this.isItemsActive = false;
-      this.isMoneysActive = false;
-      this.isResultsActive = false;
-      this.isOrganizationsActive = false;
+    methods: {
+      homeClick() {
+        this.$router.push(this.path1);
+        if (this.$route.path == this.path1) {
+          this.isHomeActive = true;
+          this.isItemsActive = false;
+          this.isMoneysActive = false;
+          this.isResultsActive = false;
+          this.isOrganizationsActive = false;
+        }
+      },
+      itemsClick() {
+        this.$router.push(this.path2);
+        if (this.$route.path == this.path2) {
+          this.isHomeActive = false;
+          this.isItemsActive = true;
+          this.isMoneysActive = false;
+          this.isResultsActive = false;
+          this.isOrganizationsActive = false;
+        }
+      },
+      resultsClick() {
+        this.$router.push(this.path3);
+        if (this.$route.path == this.path3) {
+          this.isHomeActive = false;
+          this.isItemsActive = false;
+          this.isMoneysActive = false;
+          this.isResultsActive = true;
+          this.isOrganizationsActive = false;
+        }
+      },
+      moneysClick() {
+        this.$router.push(this.path4);
+        if (this.$route.path == this.path4) {
+          this.isHomeActive = false;
+          this.isItemsActive = false;
+          this.isMoneysActive = true;
+          this.isResultsActive = false;
+          this.isOrganizationsActive = false;
+        }
+      },
+      organizationsClick() {
+        this.$router.push(this.path5);
+        if (this.$route.path == this.path5) {
+          this.isHomeActive = false;
+          this.isItemsActive = false;
+          this.isMoneysActive = false;
+          this.isResultsActive = false;
+          this.isOrganizationsActive = true;
+        }
+      },
+      jumpBackPage() {
+        this.$router.push(this.path6);
+        if (this.$route.path == this.path6) {
+          this.isHomeActive = false;
+          this.isItemsActive = false;
+          this.isMoneysActive = false;
+          this.isResultsActive = false;
+          this.isOrganizationsActive = false;
+        }
+      }
     }
   }
-}
 </script>
 
 <style>

@@ -34,6 +34,9 @@ import UpdateUserSysManagerPersonnel from "../views/backstage/usersysmanager/Upd
 import AddUserSysManagerPersonnel from "../views/backstage/usersysmanager/AddUserSysManagerPersonnel";
 import ItemsUpdate from "../views/items/ItemsUpdate";
 import ResultsExamining from "../views/results/ResultsExamining";
+import ItemsExamining from "../views/items/ItemsExamining";
+import ItemsDetails from "../views/items/ItesmsDetails";
+import ItemsDetailsed from "../views/items/ItemsDetailsed";
 
 Vue.use(VueRouter)
 
@@ -42,11 +45,6 @@ Vue.use(VueRouter)
       path: '/',
       redirect: '/home',
       show: false
-    },
-    {
-      path: '/itemsUpdate',
-      component: ItemsUpdate,
-      name: '项目修改'
     },
     {
       path: '/backHome',
@@ -156,6 +154,22 @@ Vue.use(VueRouter)
           path: '/itemsExamine',
           name: '项目审核',
           component: ItemsExamine
+        },
+        {
+          path: '/itemsExamining',
+          component: ItemsExamining
+        },
+        {
+          path: '/itemsDetails',
+          component: ItemsDetails,
+        },
+        {
+          path: '/itemsDetailsed',
+          component: ItemsDetailsed
+        },
+        {
+          path: '/itemsUpdate',
+          component: ItemsUpdate,
         },
       ]
     },

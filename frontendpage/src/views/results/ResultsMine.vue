@@ -3,7 +3,7 @@
     <div class="items-show">
       <p style="color: #0c7ed9; font-weight: bolder">未结题</p>
       <el-table
-        :data="examining"
+        :data="examining.filter(data => !search || data.project_theme.toLowerCase().includes(search.toLowerCase()))"
         style="width: 90%">
         <el-table-column
           prop="project_id"
@@ -36,7 +36,7 @@
             <el-input
               v-model="search"
               size="mini"
-              placeholder="输入关键字搜索"/>
+              placeholder="输入主题关键字搜索"/>
           </template>
         </el-table-column>
         <el-table-column
@@ -61,7 +61,7 @@
       <hr>
       <p style="color: #0c7ed9; font-weight: bolder">已结题</p>
       <el-table
-        :data="examined"
+        :data="examined.filter(data => !searched || data.project_theme.toLowerCase().includes(searched.toLowerCase()))"
         style="width: 90%">
         <el-table-column
           prop="project_id"
@@ -92,9 +92,9 @@
           align="right">
           <template slot="header" slot-scope="scope">
             <el-input
-              v-model="search"
+              v-model="searched"
               size="mini"
-              placeholder="输入关键字搜索"/>
+              placeholder="输入主题关键字搜索"/>
           </template>
         </el-table-column>
         <el-table-column
@@ -202,7 +202,8 @@
         totaled: '',
         examining: [],
         examined: [],
-        search: ''
+        search: '',
+        searched: ''
       }
     },
     created() {
