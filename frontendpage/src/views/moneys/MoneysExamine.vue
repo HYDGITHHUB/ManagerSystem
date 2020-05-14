@@ -72,15 +72,6 @@
             <el-button @click="deletedById(scope.row)" type="text" size="small">否决</el-button>
           </template>
         </el-table-column>
-        <el-table-column
-          align="right">
-          <template slot="header" slot-scope="scope">
-            <el-input
-              v-model="search"
-              size="mini"
-              placeholder="输入关键字搜索"/>
-          </template>
-        </el-table-column>
       </el-table>
       <el-pagination
         background

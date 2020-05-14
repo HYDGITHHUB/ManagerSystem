@@ -2,7 +2,7 @@
   <div>
     <div id="items-show">
       <el-table
-        :data="tableData"
+        :data="tableData.filter(data => !search || data.project_theme.toLowerCase().includes(search.toLowerCase()))"
         style="width: 90%">
         <el-table-column
           prop="project_id"
@@ -27,9 +27,10 @@
         <el-table-column
           fixed="right"
           label="操作"
-          width="100">
+          width="150">
           <template slot-scope="scope">
-<!--            <el-button @click="edit(scope.row)" type="text" size="small">修改</el-button>-->
+            <el-button @click="details(scope.row)" type="text" size="small">详情</el-button>
+            <el-button @click="edit(scope.row)" type="text" size="small">修改</el-button>
             <el-button @click="deleteById(scope.row)" type="text" size="small">删除</el-button>
           </template>
         </el-table-column>
@@ -39,7 +40,7 @@
             <el-input
               v-model="search"
               size="mini"
-              placeholder="输入关键字搜索"/>
+              placeholder="输入主题关键字搜索"/>
           </template>
         </el-table-column>
       </el-table>
@@ -57,6 +58,14 @@
 <script>
   export default {
     methods: {
+      details(row) {
+        this.$router.push({
+          path: '/itemsDetails',
+          query: {
+            id: row.project_id
+          }
+        })
+      },
       deleteById(row) {
         const _this = this
         this.$confirm('此操作将永久删除该项内容, 是否继续?', '提示', {

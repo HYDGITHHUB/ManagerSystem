@@ -101,7 +101,10 @@
             axios.post('http://localhost:8181/researchProject/save',this.ruleForm).then(function (resp) {
               if (resp.data == 'success') {
                 console.log(_this.ruleForm);
-                _this.$alert("申请提交成功！")
+                _this.$alert("申请提交成功！");
+                setTimeout(()=>{
+                  window.location.reload();
+                },1500)
               }
             })
           } else {

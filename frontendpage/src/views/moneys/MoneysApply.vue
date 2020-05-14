@@ -25,15 +25,6 @@
           width="200">
         </el-table-column>
         <el-table-column
-          align="right">
-          <template slot="header" slot-scope="scope">
-            <el-input
-              v-model="search"
-              size="mini"
-              placeholder="输入关键字搜索"/>
-          </template>
-        </el-table-column>
-        <el-table-column
           fixed="right"
           label="操作"
           width="150">
