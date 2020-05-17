@@ -104,7 +104,7 @@
                 _this.$alert("申请提交成功！");
                 setTimeout(()=>{
                   window.location.reload();
-                },1500)
+                },1000)
               }
             })
           } else {

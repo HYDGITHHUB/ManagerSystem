@@ -14,8 +14,8 @@
       <div id="header-navigation">
         <p @click="homeClick" :class="{active: isHomeActive}">首页</p>
         <p @click="itemsClick" :class="{active: isItemsActive}">科研项目</p>
-        <p @click="resultsClick" :class="{active: isResultsActive}">科研成果</p>
         <p @click="moneysClick" :class="{active: isMoneysActive}">科研经费</p>
+        <p @click="resultsClick" :class="{active: isResultsActive}">科研成果</p>
         <p @click="organizationsClick" :class="{active: isOrganizationsActive}">科研机构</p>
         </div>
     </div>

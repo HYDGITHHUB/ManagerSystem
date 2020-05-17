@@ -37,6 +37,10 @@ import ResultsExamining from "../views/results/ResultsExamining";
 import ItemsExamining from "../views/items/ItemsExamining";
 import ItemsDetails from "../views/items/ItesmsDetails";
 import ItemsDetailsed from "../views/items/ItemsDetailsed";
+import MoneyApplyDetails from "../views/moneys/MoneyApplyDetails";
+import MoneyApplyNumber from "../views/moneys/MoneyApplyNumber";
+import MoneysDetailsed from "../views/moneys/MoneysDetailsed";
+import MoneysExamining from "../views/moneys/MoneysExamining";
 
 Vue.use(VueRouter)
 
@@ -105,7 +109,8 @@ Vue.use(VueRouter)
           component: AddUserManagerPersonnel
         }
       ]
-    },{
+    },
+    {
       path: '/backHome',
       name: '系统管理员',
       component: BackHome,
@@ -199,7 +204,23 @@ Vue.use(VueRouter)
           path: '/moneysExamine',
           name: '经费审核',
           component: MoneysExamine
-        }
+        },
+        {
+          path: '/moneyApplyDetails',
+          component: MoneyApplyDetails
+        },
+        {
+          path: '/moneyApplyNumber',
+          component: MoneyApplyNumber
+        },
+        {
+          path: '/moneysDetailsed',
+          component: MoneysDetailsed
+        },
+        {
+          path: '/moneysExamining',
+          component: MoneysExamining
+        },
       ]
     },
     {

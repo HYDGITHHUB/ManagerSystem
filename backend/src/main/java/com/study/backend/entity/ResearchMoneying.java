@@ -1,18 +1,15 @@
 package com.study.backend.entity;
 
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@Entity
 @Data
-@EntityListeners(AuditingEntityListener.class)
-public class ResearchProjected {
-
+@Entity
+public class ResearchMoneying {
     @Id
     @NotNull
     private Integer project_id;
@@ -20,9 +17,10 @@ public class ResearchProjected {
     @NotNull
     private String project_owner;
 
-    private String project_state = "已审核";
+    @NotNull
+    private String project_state;
 
-    @CreatedDate
+    @NotNull
     private Date project_time;
 
     @NotNull
@@ -42,4 +40,5 @@ public class ResearchProjected {
 
     private Integer project_money;
 
+    private Integer project_moneyed;
 }

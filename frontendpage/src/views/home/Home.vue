@@ -259,7 +259,7 @@
 
   .left-style{
     width: 450px;
-    height: 400px;
+    height: 420px;
     margin-top: 10px;
     margin-left: 20px;
     overflow: hidden;
