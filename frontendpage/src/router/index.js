@@ -41,6 +41,12 @@ import MoneyApplyDetails from "../views/moneys/MoneyApplyDetails";
 import MoneyApplyNumber from "../views/moneys/MoneyApplyNumber";
 import MoneysDetailsed from "../views/moneys/MoneysDetailsed";
 import MoneysExamining from "../views/moneys/MoneysExamining";
+import ResultDetails from "../views/results/ResultDetails";
+import ResultExamined from "../views/results/ResultExamined";
+import ResultDetailsed from "../views/results/ResultDetailsed";
+import ResultUpdate from "../views/results/ResultUpdate";
+import MoneyDetails from "../views/moneys/MoneyDetails";
+import MoneyUpdate from "../views/moneys/MoneyUpdate";
 
 Vue.use(VueRouter)
 
@@ -221,6 +227,14 @@ Vue.use(VueRouter)
           path: '/moneysExamining',
           component: MoneysExamining
         },
+        {
+          path: '/moneyUpdate',
+          component: MoneyUpdate
+        },
+        {
+          path: '/moneyDetails',
+          component: MoneyDetails
+        }
       ]
     },
     {
@@ -276,13 +290,29 @@ Vue.use(VueRouter)
           component: ResultApply
         },
         {
-          path: '/resultsExamine',
+          path: '/resultExamine',
           name: '结题审核',
           component: ResultExamine
         },
         {
           path: '/resultsExamining',
           component: ResultsExamining,
+        },
+        {
+          path: '/resultDetails',
+          component: ResultDetails
+        },
+        {
+          path: '/resultDetailsed',
+          component: ResultDetailsed
+        },
+        {
+          path: '/resultExamined',
+          component: ResultExamined
+        },
+        {
+          path: '/resultUpdate',
+          component: ResultUpdate
         }
       ]
     },

@@ -17,12 +17,22 @@
         <el-table-column
           prop="project_time_end"
           label="时间"
-          width="250">
+          width="125">
         </el-table-column>
         <el-table-column
           prop="project_theme"
           label="主题"
           width="150">
+        </el-table-column>
+        <el-table-column
+          prop="project_moneyed"
+          label="科研经费"
+          width="80">
+        </el-table-column>
+        <el-table-column
+          prop="project_result_type"
+          label="结题类型"
+          width="80">
         </el-table-column>
         <el-table-column
           fixed="right"
@@ -58,6 +68,14 @@
 <script>
   export default {
     methods: {
+      details(row) {
+        this.$router.push({
+          path: '/resultDetailsed',
+          query: {
+            id: row.project_id
+          }
+        })
+      },
       deleteById(row) {
         const _this = this
         this.$confirm('此操作将永久删除该项内容, 是否继续?', '提示', {
@@ -81,15 +99,12 @@
         });
       },
       edit(row) {
-        // console.log(row)
-        // alert(row.user_id)
         this.$router.push({
-          path: '/itemsUpdate',
-          query:{
-            id:row.project_id
+          path: '/resultUpdate',
+          query: {
+            id: row.project_id
           }
         })
-        // console.log(row);
       },
       changePage(currentPage) {
         const _this = this;

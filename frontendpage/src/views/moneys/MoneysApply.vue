@@ -56,28 +56,6 @@
           }
         })
       },
-      submitForm(formName) {
-        const _this = this;
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            axios.post('http://localhost:8181/researchMoney/save',this.findTableData).then(function (resp) {
-              if (resp.data == 'success') {
-                // console.log(_this.findTableData);
-                _this.$alert("申请提交成功！")
-                setTimeout(() =>{
-                  window.location.reload();
-                },2000)
-              }
-            })
-          } else {
-            console.log("error");
-            return false;
-          }
-        });
-      },
-      cancel() {
-
-      },
       details(row) {
         this.$router.push({
           path: '/moneyApplyDetails',
@@ -109,7 +87,7 @@
     },
     created() {
       const _this = this;
-      axios.get('http://localhost:8181/researchMoneying/findAll/0/5').then(function (resp) {
+      axios.get('http://localhost:8181/researchMoney/findAll/0/5').then(function (resp) {
         console.log(resp);
         _this.examined = resp.data.content;
         _this.pageSized = resp.data.size;

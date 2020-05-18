@@ -63,7 +63,7 @@
       },
       changePaged(currentPage) {
         const _this = this;
-        axios.get('http://localhost:8181/researchMoneyed/findAll/' + (currentPage - 1) + '/5').then(function (resp) {
+        axios.get('http://localhost:8181/researchResult/findAll/' + (currentPage - 1) + '/5').then(function (resp) {
           _this.examined = resp.data.content;
           _this.pageSized = resp.data.size;
           _this.totaled = resp.data.totalElements;
@@ -83,7 +83,7 @@
     },
     created() {
       const _this = this;
-        axios.get('http://localhost:8181/researchMoneyed/findAll/0/5').then(function (resp) {
+        axios.get('http://localhost:8181/researchResult/findAll/0/5').then(function (resp) {
           console.log(resp);
           _this.examined = resp.data.content;
           _this.pageSized = resp.data.size;

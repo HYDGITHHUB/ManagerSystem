@@ -2,7 +2,7 @@
   <div>
     <el-form :model="ruleForm" ref="ruleForm" label-width="150px" class="demo-ruleForm" style="width: 60%;margin-left: 10px">
       <hr>
-      <a href="/moneysExamine" style="color: #0c7ed9;cursor: pointer">&lt;返回经费审核</a>
+      <a href="/moneysShow" style="color: #0c7ed9;cursor: pointer">&lt;返回经费总览</a>
       <el-form-item label="编号" prop="project_id">
         <el-input v-model="ruleForm.project_id" readonly></el-input>
       </el-form-item>
@@ -17,6 +17,9 @@
       </el-form-item>
       <el-form-item label="预期经费" prop="project_money">
         <el-input v-model="ruleForm.project_money" readonly></el-input>
+      </el-form-item>
+      <el-form-item label="实拨经费" prop="project_moneyed">
+        <el-input v-model="ruleForm.project_moneyed" readonly></el-input>
       </el-form-item>
       <el-form-item label="类型" prop="project_type">
         <el-input v-model="ruleForm.project_type" readonly></el-input>
@@ -47,7 +50,7 @@
     },
     created() {
       const _this = this;
-      axios.get('http://localhost:8181/researchMoneying/findById/' + _this.$route.query.id).then(function (resp) {
+      axios.get('http://localhost:8181/researchMoneyed/findById/' + _this.$route.query.id).then(function (resp) {
         _this.ruleForm = resp.data;
         // console.log(_this.ruleForm);
       })
