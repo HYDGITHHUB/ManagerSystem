@@ -22,58 +22,20 @@
         <el-table-column
           prop="project_theme"
           label="主题"
-          width="200">
+          width="150">
+        </el-table-column>
+        <el-table-column
+          prop="project_moneyed"
+          label="科研经费"
+          width="100">
         </el-table-column>
         <el-table-column
           fixed="right"
           label="操作"
           width="120">
           <template slot-scope="scope"  >
-            <el-button @click="" type="text" size="small">详情</el-button>
+            <el-button @click="details(scope.row)" type="text" size="small">详情</el-button>
             <el-button @click="examine(scope.row)" type="text" size="small">审核</el-button>
-            <el-dialog title="审核信息" :visible.sync="dialogTableVisible">
-              <el-form :model="findTableData" ref="findTableData" label-width="150px" class="demo-ruleForm"
-                       style="width: 80%;margin: 0 auto">
-                <el-form-item label="编号" prop="project_id">
-                  <el-input v-model="findTableData.project_id" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="申请人" prop="project_owner">
-                  <el-input v-model="findTableData.project_owner" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="开始时间" prop="project_time">
-                  <el-input v-model="findTableData.project_time" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="结束时间" prop="project_time_end">
-                  <el-input v-model="findTableData.project_time_end" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="类型" prop="project_type">
-                  <el-input v-model="findTableData.project_type" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="级别" prop="project_grade">
-                  <el-input v-model="findTableData.project_grade" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="主题" prop="project_theme">
-                  <el-input v-model="findTableData.project_theme" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="描述" prop="project_describe">
-                  <el-input v-model="findTableData.project_describe" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="前景" prop="project_prospect">
-                  <el-input v-model="findTableData.project_prospect" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="评分" prop="project_result_grade">
-                  <el-input v-model="findTableData.project_result_grade"></el-input>
-                </el-form-item>
-                <el-form-item label="结题结论" prop="project_result_comment">
-                  <el-input v-model="findTableData.project_result_comment"></el-input>
-                </el-form-item>
-                <el-form-item>
-                  <el-button type="primary" @click="submitForm('findTableData')">同意</el-button>
-                  <el-button type="primary" @click="cancel" style="margin-left: 150px">取消</el-button>
-                </el-form-item>
-              </el-form>
-            </el-dialog>
-            <el-button @click="deleteById(scope.row)" type="text" size="small" style="margin-left: 10px">否决</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -103,42 +65,14 @@
       }
     },
     methods: {
-      cancel() {
-        window.location.reload();
+      details(row) {
+        this.$router.push({
+          path: '/resultDetails',
+          query: {
+            id: row.project_id
+          }
+        })
       },
-      deleteById(row) {
-        const _this = this
-        this.$confirm('是否确认否决该项申请?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          axios.delete('http://localhost:8181/researchResult/deleteById/' + row.project_id).then(function (resp) {
-            _this.$alert(row.project_theme + ' ' + '已否决', '消息', {
-              confirmButtonText: '确定',
-              callback: action => {
-                window.location.reload()
-              }
-            });
-          })
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });
-        });
-      },
-      // edit(row) {
-      //   // console.log(row)
-      //   // alert(row.user_id)
-      //   this.$router.push({
-      //     path: '/itemsUpdate',
-      //     query: {
-      //       id: row.project_id
-      //     }
-      //   })
-      //   // console.log(row);
-      // },
       changePage(currentPage) {
         const _this = this;
         axios.get('http://localhost:8181/researchResult/findAll/' + (currentPage - 1) + '/5').then(function (resp) {
@@ -148,46 +82,17 @@
         })
       },
       examine(row) {
-        // console.log(row);
-        // console.log("这是findTableDate")
-        // console.log(this.findTableData);
-        const _this = this;
-        _this.dialogTableVisible = true;
-        axios.get("http://localhost:8181/researchResult/findById/" + row.project_id).then(function (resp) {
-          _this.findTableData = resp.data
-          // console.log(_this.findTableData);
-          // console.log(resp);
+        this.$router.push({
+          path: '/resultExamined',
+          query: {
+            id: row.project_id
+          }
         })
       },
-      submitForm(formName) {
-        const _this = this;
-        _this.findTableData.project_result_state = '已结题'
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            axios.post('http://localhost:8181/researchResulted/save', _this.findTableData).then(function (resp) {
-              if (resp.data == 'success') {
-                _this.$alert(_this.findTableData.project_theme + ' ' + '成功结题', '消息', {
-                  confirmButtonText: '确定',
-                  callback: action => {
-                    _this.$router.push('/itemsShow')
-                  }
-                });
-                axios.delete('http://localhost:8181/researchResult/deleteById/' + _this.findTableData.project_id).then(function (resp) {
-                  window.location.reload()
-                  console.log("成功删除")
-                })
-              }
-            })
-          } else {
-            // console.log('error submit!!');
-            return false;
-          }
-        });
-      }
     },
     created() {
       const _this = this;
-      axios.get('http://localhost:8181/researchResult/findAll/0/5').then(function (resp) {
+      axios.get('http://localhost:8181/researchResulting/findAll/0/5').then(function (resp) {
         // console.log(resp);
         _this.tableData = resp.data.content;
         _this.pageSize = resp.data.size;

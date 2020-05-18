@@ -17,7 +17,7 @@
         <el-table-column
           prop="project_time"
           label="申请时间"
-          width="250">
+          width="150">
         </el-table-column>
         <el-table-column
           prop="project_type"
@@ -52,9 +52,10 @@
         <el-table-column
           fixed="right"
           label="操作"
-          width="100">
+          width="150">
           <template slot-scope="scope">
-            <!--          <el-button @click="edit(scope.row)" type="text" size="small">修改</el-button>-->
+            <el-button @click="details(scope.row)" type="text" size="small">详情</el-button>
+            <el-button @click="edit(scope.row)" type="text" size="small">修改</el-button>
             <el-button @click="deletedById(scope.row)" type="text" size="small">删除</el-button>
           </template>
         </el-table-column>
@@ -73,6 +74,22 @@
 <script>
   export default {
     methods: {
+      details(row) {
+        this.$router.push({
+          path: '/moneyDetails',
+          query: {
+            id: row.project_id
+          }
+        })
+      },
+      edit(row) {
+        this.$router.push({
+          path: '/moneyUpdate',
+          query: {
+            id: row.project_id
+          }
+        })
+      },
       deletedById(row) {
         const _this = this
         this.$confirm('此操作将永久删除该项内容, 是否继续?', '提示', {

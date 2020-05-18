@@ -1,7 +1,8 @@
 <template>
   <div>
     <el-form :model="ruleForm" ref="ruleForm" label-width="150px" class="demo-ruleForm" style="width: 60%;margin-left: 10px">
-      <a href="/moneysExamine" style="color: #0c7ed9;cursor: pointer">&lt;返回经费审核</a>
+      <hr>
+      <a href="/resultExamine" style="color: #0c7ed9;cursor: pointer">&lt;返回项目审核</a>
       <el-form-item label="编号" prop="project_id">
         <el-input v-model="ruleForm.project_id" readonly></el-input>
       </el-form-item>
@@ -17,9 +18,6 @@
       <el-form-item label="预期经费" prop="project_money">
         <el-input v-model="ruleForm.project_money" readonly></el-input>
       </el-form-item>
-      <el-form-item label="实拨经费" prop="project_money">
-        <el-input v-model="ruleForm.project_moneyed"></el-input>
-      </el-form-item>
       <el-form-item label="类型" prop="project_type">
         <el-input v-model="ruleForm.project_type" readonly></el-input>
       </el-form-item>
@@ -31,6 +29,34 @@
       </el-form-item>
       <el-form-item label="描述" prop="project_describe">
         <el-input type="textarea" v-model="ruleForm.project_describe" readonly></el-input>
+      </el-form-item>
+
+      <el-form-item label="结题类型" prop="project_result_type">
+        <el-input v-model="ruleForm.project_result_type" readonly></el-input>
+      </el-form-item>
+      <el-form-item label="专著种类" prop="project_monograph_type">
+        <el-input type="textarea" v-model="ruleForm.project_monograph_type" readonly></el-input>
+      </el-form-item>
+      <el-form-item label="专著内容" prop="project_monograph_content">
+        <el-input type="textarea" v-model="ruleForm.project_monograph_content" readonly></el-input>
+      </el-form-item>
+      <el-form-item label="专著种类" prop="project_press_type">
+        <el-input type="textarea" v-model="ruleForm.project_press_type" readonly></el-input>
+      </el-form-item>
+      <el-form-item label="专著内容" prop="project_press_content">
+        <el-input type="textarea" v-model="ruleForm.project_press_content" readonly></el-input>
+      </el-form-item>
+      <el-form-item label="专著种类" prop="project_patent_type">
+        <el-input type="textarea" v-model="ruleForm.project_patent_type" readonly></el-input>
+      </el-form-item>
+      <el-form-item label="专著内容" prop="project_patent_content">
+        <el-input type="textarea" v-model="ruleForm.project_patent_content" readonly></el-input>
+      </el-form-item>
+      <el-form-item label="专著种类" prop="project_technology_type">
+        <el-input type="textarea" v-model="ruleForm.project_technology_type" readonly></el-input>
+      </el-form-item>
+      <el-form-item label="专著内容" prop="project_technology_content">
+        <el-input type="textarea" v-model="ruleForm.project_technology_content" readonly></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">通过</el-button>
@@ -44,30 +70,7 @@
   export default {
     name: "ResultsExamining",
     methods: {
-      deleteById() {
-        const _this = this
-        this.$confirm('是否确认否决该项申请?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          axios.delete('http://localhost:8181/researchMoneying/deleteById/' + _this.ruleForm.project_id).then(function (resp) {
-            _this.$alert(_this.ruleForm.project_theme + ' ' + '已否决', '消息', {
-              confirmButtonText: '确定',
-              callback: action => {
-                setTimeout(()=>{
-                  _this.$router.push('/itemsExamine')
-                })
-              }
-            });
-          })
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });
-        });
-      },
+
       submitForm(formName) {
         const _this = this;
         _this.ruleForm.project_state = '已审核';
@@ -78,18 +81,12 @@
         }).then(() => {
             this.$refs[formName].validate((valid) => {
               if (valid) {
-                axios.post('http://localhost:8181/researchMoneyed/save',this.ruleForm).then(function (resp) {
+                axios.post('http://localhost:8181/researchResulted/save',this.ruleForm).then(function (resp) {
                   if (resp.data == 'success') {
                     // console.log(_this.ruleForm);
                     _this.$alert("申请审核成功！");
-                    _this.$router.push('/moneysExamine');
-                    axios.post('http://localhost:8181/researchResult/save',_this.ruleForm).then(function (resp) {
-                      if (resp.data == 'success') {
-                        console.log("success");
-                        console.log(this.ruleForm);
-                      }
-                    });
-                    axios.delete('http://localhost:8181/researchMoneying/deleteById/' + _this.ruleForm.project_id).then(function (resp) {
+                    _this.$router.push('/resultExamine');
+                    axios.delete('http://localhost:8181/researchResulting/deleteById/' + _this.ruleForm.project_id).then(function (resp) {
                       setTimeout(()=>{
                         window.location.reload()
                       },1500)
@@ -109,6 +106,29 @@
           });
         });
       },
+
+      deleteById(row) {
+        const _this = this
+        this.$confirm('是否确认否决该项申请?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          axios.delete('http://localhost:8181/researchResulting/deleteById/' + row.project_id).then(function (resp) {
+            _this.$alert(row.project_theme + ' ' + '已否决', '消息', {
+              confirmButtonText: '确定',
+              callback: action => {
+                window.location.reload()
+              }
+            });
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+      },
     },
     data() {
       return {
@@ -118,7 +138,7 @@
     },
     created() {
       const _this = this;
-      axios.get('http://localhost:8181/researchMoneying/findById/' + _this.$route.query.id).then(function (resp) {
+      axios.get('http://localhost:8181/researchResulting/findById/' + _this.$route.query.id).then(function (resp) {
         _this.ruleForm = resp.data;
         // console.log(_this.ruleForm);
       })

@@ -6,25 +6,21 @@
 
     <el-dialog title="用户登录" :visible.sync="dialogFormVisible">
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="用户名" prop="age" style="width: 650px">
+        <el-form-item label="用户名" prop="name" style="width: 650px">
           <el-input v-model.number="ruleForm.age"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="pass" style="width: 650px">
           <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="用户类型" prop="checkPass" style="width: 650px">
-          <el-radio v-model="loginRadio" label="1">科研人员</el-radio>
-          <el-radio v-model="loginRadio" label="2">科研管理员</el-radio>
-        </el-form-item>
+<!--        <el-form-item label="用户类型" prop="userType" style="width: 650px">-->
+<!--          <el-radio v-model="loginRadio" label="1">科研人员</el-radio>-->
+<!--          <el-radio v-model="loginRadio" label="2">科研管理员</el-radio>-->
+<!--        </el-form-item>-->
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
           <el-button @click="resetForm('ruleForm')" >重置</el-button>
         </el-form-item>
       </el-form>
-<!--      <div slot="footer" class="dialog-footer">-->
-<!--        <el-button @click="dialogFormVisible = false">取 消</el-button>-->
-<!--        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>-->
-<!--      </div>-->
     </el-dialog>
     <slot name="exit-button"></slot>
     <slot name="manager-button"></slot>
@@ -34,7 +30,8 @@
 <script>
     export default {
         name: "login",
-      data() { var checkAge = (rule, value, callback) => {
+      data() {
+        var checkAge = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('内容不能为空'));
         }
@@ -73,6 +70,7 @@
           loginRadio: '1',
           form: {
             name: '',
+            userType: '',
             region: '',
             date1: '',
             date2: '',
@@ -84,19 +82,13 @@
           formLabelWidth: '120px',
           ruleForm: {
             pass: '',
-            checkPass: '',
-            age: ''
+            // userType: '',
+            user: ''
           },
           rules: {
             pass: [
               { validator: validatePass, trigger: 'blur' }
             ],
-            checkPass: [
-              { validator: validatePass2, trigger: 'blur' }
-            ],
-            age: [
-              { validator: checkAge, trigger: 'blur' }
-            ]
           }
         };
       },
@@ -104,7 +96,15 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            axios.post('http://localhost:8181/user/login',this.ruleForm).then(function (resp) {
+              if (resp.data != 'error') {
+                console.log(_this.ruleForm);
+                _this.$alert("申请提交成功！");
+                setTimeout(()=>{
+                  window.location.reload();
+                },1000)
+              }
+            })
           } else {
             console.log('error submit!!');
             return false;

@@ -133,13 +133,13 @@
           const _this = this;
           this.$refs[formName].validate((valid) => {
             if (valid) {
-              axios.post('http://localhost:8181/researchResult/save',this.ruleForm).then(function (resp) {
+              axios.post('http://localhost:8181/researchResulting/save',this.ruleForm).then(function (resp) {
                 if (resp.data == 'success') {
                   // console.log(_this.ruleForm);
                   _this.$alert("申请提交成功！");
-                  _this.$router.push('/resultsShow')
-                  axios.delete('http://localhost:8181/researchResult/deleteById/' + row.project_id).then(function (resp) {
-                    window.location.reload()
+                  _this.$router.push('/resultsApply')
+                  axios.delete('http://localhost:8181/researchResult/deleteById/' + _this.ruleForm.project_id).then(function (resp) {
+                    // window.location.reload()
                   })
                 }
               })
@@ -167,7 +167,7 @@
       },
       created() {
         const _this = this;
-        axios.get('http://localhost:8181/researchMoneyed/findById/' + this.$route.query.id).then(function (resp) {
+        axios.get('http://localhost:8181/researchResult/findById/' + this.$route.query.id).then(function (resp) {
           _this.ruleForm = resp.data;
           // console.log(_this.ruleForm);
         })
