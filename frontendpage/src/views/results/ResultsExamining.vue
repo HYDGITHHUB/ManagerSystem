@@ -1,6 +1,6 @@
 <template>
 <div>
-  <el-form :model="ruleForm" ref="ruleForm" label-width="150px" class="demo-ruleForm" style="width: 60%;margin: 0 auto">
+  <el-form :model="ruleForm" ref="ruleForm" label-width="150px" class="demo-ruleForm" style="width: 60%;margin: 10px">
     <hr>
     <p style="color: #0c7ed9">项目信息</p>
     <el-form-item label="编号" prop="project_id">
@@ -139,7 +139,7 @@
                   _this.$alert("申请提交成功！");
                   _this.$router.push('/resultsApply')
                   axios.delete('http://localhost:8181/researchResult/deleteById/' + _this.ruleForm.project_id).then(function (resp) {
-                    // window.location.reload()
+                    window.location.reload()
                   })
                 }
               })

@@ -30,8 +30,8 @@
           width="150">
           <template slot-scope="scope">
             <el-button @click="details(scope.row)" type="text" size="small">详情</el-button>
-            <el-button @click="edit(scope.row)" type="text" size="small">修改</el-button>
-            <el-button @click="deleteById(scope.row)" type="text" size="small">删除</el-button>
+            <el-button @click="edit(scope.row)" type="text" size="small" v-if="role == 2">修改</el-button>
+            <el-button @click="deleteById(scope.row)" type="text" size="small" v-if="role == 2">删除</el-button>
           </template>
         </el-table-column>
         <el-table-column
@@ -115,10 +115,12 @@
         total: '',
         tableData: [],
         search: '',
-        findTableData: []
+        findTableData: [],
+        role: 3
       }
     },
     created() {
+      this.role = sessionStorage.getItem('role')
       const _this = this;
       axios.get('http://localhost:8181/researchProjected/findAll/0/5').then(function (resp) {
         // console.log(resp);

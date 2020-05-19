@@ -42,10 +42,15 @@ public class ResearchProjectedHandler {
         }
     }
 
-    @GetMapping("findById/{id}")
+    @GetMapping("/findById/{id}")
     public ResearchProjected findById(@PathVariable("id") Integer id) {
         return researchProjectedRepository.findById(id).get();
     }
+
+//    @GetMapping("findByName")
+//    public ResearchProjected findByName(@PathVariable("name") String name) {
+//        return researchProjectedRepository.findByName(name).get();
+//    }
 
     /**
      *
