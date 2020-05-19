@@ -17,12 +17,17 @@
         <el-table-column
           prop="project_type"
           label="类型"
-          width="80">
+          width="120">
         </el-table-column>
         <el-table-column
           prop="project_theme"
           label="科研主题"
-          width="200">
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="project_moneyed"
+          label="科研经费"
+          width="100">
         </el-table-column>
         <el-table-column
           fixed="right"

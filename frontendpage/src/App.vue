@@ -2,12 +2,12 @@
   <div id="app">
     <div id="home-header">
       <div id="header-logo">
-        <img src="./assets/img/home/logo.jpg" alt="logo" style="height: 120px">
-        <p>高校科研管理系统</p>
+        <img src="./assets/img/home/logo1.jpg" alt="logo" style="height: 120px">
+<!--        <p>高校科研管理系统</p>-->
         <div>
           <Login>
-            <el-button slot="exit-button" class="login-button" type="submit">退出</el-button>
-            <el-button slot="manager-button" class="login-button" type="submit" @click="jumpBackPage">管理员</el-button>
+            <el-button slot="exit-button" class="login-button" type="submit" @click="logout()" v-if="role">退出</el-button>
+            <el-button slot="manager-button" class="login-button" type="submit" @click="jumpBackPage" v-if="role == 1">管理员</el-button>
           </Login>
         </div>
       </div>
@@ -53,8 +53,12 @@
         isItemsActive: '',
         isMoneysActive: '',
         isResultsActive: '',
-        isOrganizationsActive: ''
+        isOrganizationsActive: '',
+        role: null
       }
+    },
+    created() {
+      this.role = sessionStorage.getItem('role')
     },
     methods: {
       homeClick() {
@@ -116,6 +120,10 @@
           this.isResultsActive = false;
           this.isOrganizationsActive = false;
         }
+      },
+      logout () {
+        window.sessionStorage.clear()
+        window.location.reload();
       }
     }
   }
@@ -191,7 +199,7 @@
     line-height: 110px;
     color: #e8ecf4;
     font-weight: bolder;
-    margin: 0 0 0 -400px;
+    margin: 0 0 0 -550px;
   }
 
   #home-header {

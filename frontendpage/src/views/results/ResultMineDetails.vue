@@ -1,9 +1,8 @@
 <template>
   <div>
     <el-form :model="ruleForm" ref="ruleForm" label-width="150px" class="demo-ruleForm" style="width: 60%;margin-left: 10px">
-      <a href="/resultsShow" style="color: #0c7ed9;cursor: pointer">&lt;返回成果总览</a>
       <hr>
-      <p style="color: #0c7ed9">项目信息</p>
+      <a href="/resultsMine" style="color: #0c7ed9;cursor: pointer">&lt;返回我的成果</a>
       <el-form-item label="编号" prop="project_id">
         <el-input v-model="ruleForm.project_id" readonly></el-input>
       </el-form-item>
@@ -35,7 +34,7 @@
         <el-input type="textarea" v-model="ruleForm.project_describe" readonly></el-input>
       </el-form-item>
 
-      <p style="color: #0c7ed9">结题信息</p>
+
       <el-form-item label="结题类型" prop="project_result_type">
         <el-input v-model="ruleForm.project_result_type" readonly></el-input>
       </el-form-item>
@@ -45,32 +44,29 @@
       <el-form-item label="专著内容" prop="project_monograph_content">
         <el-input type="textarea" v-model="ruleForm.project_monograph_content" ></el-input>
       </el-form-item>
+
+
       <el-form-item label="报刊名称" prop="project_press_type">
         <el-input type="textarea" v-model="ruleForm.project_press_type" readonly></el-input>
       </el-form-item>
       <el-form-item label="发表内容" prop="project_press_content">
         <el-input type="textarea" v-model="ruleForm.project_press_content" ></el-input>
       </el-form-item>
+
+
       <el-form-item label="专利类别" prop="project_patent_type">
         <el-input type="textarea" v-model="ruleForm.project_patent_type" readonly></el-input>
       </el-form-item>
       <el-form-item label="详细描述" prop="project_patent_content">
         <el-input type="textarea" v-model="ruleForm.project_patent_content" ></el-input>
       </el-form-item>
+
+
       <el-form-item label="技术领域" prop="project_technology_type">
         <el-input type="textarea" v-model="ruleForm.project_technology_type" readonly></el-input>
       </el-form-item>
       <el-form-item label="技术描述" prop="project_technology_content">
         <el-input type="textarea" v-model="ruleForm.project_technology_content" ></el-input>
-      </el-form-item>
-
-
-      <p style="color: #0c7ed9">结题评价</p>
-      <el-form-item label="项目评分" prop="project_result_grade">
-        <el-input type="textarea" v-model="ruleForm.project_result_grade" readonly></el-input>
-      </el-form-item>
-      <el-form-item label="项目评价" prop="project_result_comment">
-        <el-input type="textarea" v-model="ruleForm.project_result_comment" ></el-input>
       </el-form-item>
     </el-form>
   </div>
@@ -89,7 +85,7 @@
     },
     created() {
       const _this = this;
-      axios.get('http://localhost:8181/researchResulted/findById/' + _this.$route.query.id).then(function (resp) {
+      axios.get('http://localhost:8181/researchResult/findById/' + _this.$route.query.id).then(function (resp) {
         _this.ruleForm = resp.data;
         // console.log(_this.ruleForm);
       })

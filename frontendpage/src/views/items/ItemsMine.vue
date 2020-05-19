@@ -45,7 +45,7 @@
           width="100">
           <template slot-scope="scope">
             <el-button @click="details(scope.row)" type="text" size="small">详情</el-button>
-            <el-button @click="deleteById(scope.row)" type="text" size="small">删除</el-button>
+            <el-button @click="deleteById(scope.row)" type="text" size="small" v-if="role == 2">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -103,7 +103,7 @@
           width="100">
           <template slot-scope="scope">
             <el-button @click="detailsed(scope.row)" type="text" size="small">详情</el-button>
-            <el-button @click="deletedById(scope.row)" type="text" size="small">删除</el-button>
+            <el-button @click="deletedById(scope.row)" type="text" size="small" v-if="role == 2">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -121,6 +121,22 @@
 <script>
   export default {
     methods: {
+      details(row) {
+        this.$router.push({
+          path: '/itemMineDetails',
+          query: {
+            id: row.project_id
+          }
+        })
+      },
+      detailsed(row) {
+        this.$router.push({
+          path: '/itemMineDetailsed',
+          query: {
+            id: row.project_id
+          }
+        })
+      },
       deleteById(row) {
         const _this = this
         this.$confirm('此操作将永久删除该项内容, 是否继续?', '提示', {
@@ -176,43 +192,50 @@
       //   })
       //   // console.log(row);
       // },
-      changePage(currentPage) {
-        const _this = this;
-        axios.get('http://localhost:8181/researchProject/findAll/' + (currentPage - 1) + '/5').then(function (resp) {
-          _this.examining = resp.data.content;
-          _this.pageSize = resp.data.size;
-          _this.total = resp.data.totalElements;
-        })
-      },
-      changePaged(currentPage) {
-        const _this = this;
-        axios.get('http://localhost:8181/researchProjected/findAll/' + (currentPage - 1) + '/5').then(function (resp) {
-          _this.examined = resp.data.content;
-          _this.pageSized = resp.data.size;
-          _this.totaled = resp.data.totalElements;
-        })
-      }
+      // changePage(currentPage) {
+      //   const _this = this;
+      //   axios.get('http://localhost:8181/researchProject/findAll/' + (currentPage - 1) + '/5').then(function (resp) {
+      //     _this.examining = resp.data.content;
+      //     _this.pageSize = resp.data.size;
+      //     _this.total = resp.data.totalElements;
+      //   })
+      // },
+      // changePaged(currentPage) {
+      //   const _this = this;
+      //   axios.get('http://localhost:8181/researchProjected/findAll/' + (currentPage - 1) + '/5').then(function (resp) {
+      //     _this.examined = resp.data.content;
+      //     _this.pageSized = resp.data.size;
+      //     _this.totaled = resp.data.totalElements;
+      //   })
+      // }
     },
 
     data() {
       return {
-        pageSize: '',
-        total: '',
-        pageSized: '',
-        totaled: '',
+        // pageSize: '',
+        // total: '',
+        // pageSized: '',
+        // totaled: '',
         examining: [],
         examined: [],
         search: '',
-        searched: ''
+        searched: '',
+        role: 3,
+        userName: ''
       }
     },
     created() {
+      this.userName = window.sessionStorage.getItem('name')
+      // console.log('1')
+      // console.log(this.userName);
+      // console.log('2');
+      this.role = sessionStorage.getItem('role')
       const _this = this;
-      axios.get('http://localhost:8181/researchProject/findAll/0/5').then(function (resp) {
+      axios.get('http://localhost:8181/researchProject/findById' + _this.userName).then(function (resp) {
         console.log(resp);
         _this.examining = resp.data.content;
-        _this.pageSize = resp.data.size;
-        _this.total = resp.data.totalElements;
+        // _this.pageSize = resp.data.size;
+        // _this.total = resp.data.totalElements;
       }),
         axios.get('http://localhost:8181/researchProjected/findAll/0/5').then(function (resp) {
           console.log(resp);

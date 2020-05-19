@@ -44,8 +44,8 @@
           label="操作"
           width="100">
           <template slot-scope="scope">
-            <!--          <el-button @click="edit(scope.row)" type="text" size="small">修改</el-button>-->
-            <el-button @click="deleteById(scope.row)" type="text" size="small">删除</el-button>
+            <el-button @click="details(scope.row)" type="text" size="small">详情</el-button>
+            <el-button @click="deleteById(scope.row)" type="text" size="small" v-if="role == 2">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -102,8 +102,8 @@
           label="操作"
           width="100">
           <template slot-scope="scope">
-            <!--          <el-button @click="edit(scope.row)" type="text" size="small">修改</el-button>-->
-            <el-button @click="deletedById(scope.row)" type="text" size="small">删除</el-button>
+            <el-button @click="detailsed(scope.row)" type="text" size="small">详情</el-button>
+            <el-button @click="deletedById(scope.row)" type="text" size="small" v-if="role == 2">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -121,6 +121,22 @@
 <script>
   export default {
     methods: {
+      details(row) {
+        this.$router.push({
+          path: '/resultMineDetails',
+          query: {
+            id: row.project_id
+          }
+        })
+      },
+      detailsed(row) {
+        this.$router.push({
+          path: '/resultMineDetailsed',
+          query: {
+            id: row.project_id
+          }
+        })
+      },
       deleteById(row) {
         const _this = this
         this.$confirm('此操作将永久删除该项内容, 是否继续?', '提示', {
@@ -203,10 +219,12 @@
         examining: [],
         examined: [],
         search: '',
-        searched: ''
+        searched: '',
+        role: 3
       }
     },
     created() {
+      this.role = sessionStorage.getItem('role')
       const _this = this;
       axios.get('http://localhost:8181/researchResult/findAll/0/5').then(function (resp) {
         console.log(resp);

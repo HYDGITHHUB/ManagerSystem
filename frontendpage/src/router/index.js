@@ -26,12 +26,8 @@ import BackHome from "../views/backstage/BackHome";
 import FindUserPersonnel from "../views/backstage/user/FindUserPersonnel";
 import UpdateUserPersonnel from "../views/backstage/user/UpdateUserPersonnel";
 import AddUserPersonnel from "../views/backstage/user/AddUserPersonnel";
-import FindUserManagerPersonnel from "../views/backstage/usermanager/FindUserManagerPersonnel";
 import UpdateUserManagerPersonnel from "../views/backstage/usermanager/UpdateUserManagerPersonnel";
-import AddUserManagerPersonnel from "../views/backstage/usermanager/AddUserManagerPersonnel";
-import FindUserSysManagerPersonnel from "../views/backstage/usersysmanager/FindUserSysManagerPersonnel";
 import UpdateUserSysManagerPersonnel from "../views/backstage/usersysmanager/UpdateUserSysManagerPersonnel";
-import AddUserSysManagerPersonnel from "../views/backstage/usersysmanager/AddUserSysManagerPersonnel";
 import ItemsUpdate from "../views/items/ItemsUpdate";
 import ResultsExamining from "../views/results/ResultsExamining";
 import ItemsExamining from "../views/items/ItemsExamining";
@@ -47,6 +43,11 @@ import ResultDetailsed from "../views/results/ResultDetailsed";
 import ResultUpdate from "../views/results/ResultUpdate";
 import MoneyDetails from "../views/moneys/MoneyDetails";
 import MoneyUpdate from "../views/moneys/MoneyUpdate";
+import ItemMineDetails from "../views/items/ItemMineDetails";
+import ItemMineDetailsed from "../views/items/ItemMineDetailsed";
+import MoneyMineDetails from "../views/moneys/MoneyMineDetails";
+import ResultMineDetails from "../views/results/ResultMineDetails";
+import ResultMineDetailsed from "../views/results/ResultMineDetailsed";
 
 Vue.use(VueRouter)
 
@@ -81,7 +82,7 @@ Vue.use(VueRouter)
     },
     {
       path: '/backHome',
-      name: '科研人员',
+      name: '用户管理',
       component: BackHome,
       show: 'backHome',
       redirect: '/findUser',
@@ -95,42 +96,6 @@ Vue.use(VueRouter)
           path: '/AddUser',
           name: '添加',
           component: AddUserPersonnel
-        }
-      ]
-    },
-    {
-      path: '/backHome',
-      name: '科研管理人员',
-      component: BackHome,
-      show: 'backHome',
-      children: [
-        {
-          path: '/findUserManager',
-          name: '查询',
-          component: FindUserManagerPersonnel
-        },
-        {
-          path: '/AddUserManager',
-          name: '添加',
-          component: AddUserManagerPersonnel
-        }
-      ]
-    },
-    {
-      path: '/backHome',
-      name: '系统管理员',
-      component: BackHome,
-      show: 'backHome',
-      children: [
-        {
-          path: '/findUserSysManager',
-          name: '查询',
-          component: FindUserSysManagerPersonnel
-        },
-        {
-          path: '/AddUserSysManager',
-          name: '添加',
-          component: AddUserSysManagerPersonnel
         }
       ]
     },
@@ -182,6 +147,14 @@ Vue.use(VueRouter)
           path: '/itemsUpdate',
           component: ItemsUpdate,
         },
+        {
+          path: '/itemMineDetails',
+          component: ItemMineDetails
+        },
+        {
+          path: '/itemMineDetailsed',
+          component: ItemMineDetailsed
+        }
       ]
     },
     {
@@ -234,6 +207,10 @@ Vue.use(VueRouter)
         {
           path: '/moneyDetails',
           component: MoneyDetails
+        },
+        {
+          path: '/moneyMineDetails',
+          component: MoneyMineDetails
         }
       ]
     },
@@ -313,6 +290,14 @@ Vue.use(VueRouter)
         {
           path: '/resultUpdate',
           component: ResultUpdate
+        },
+        {
+          path: '/resultMineDetails',
+          component: ResultMineDetails
+        },
+        {
+          path: '/resultMineDetailsed',
+          component: ResultMineDetailsed
         }
       ]
     },

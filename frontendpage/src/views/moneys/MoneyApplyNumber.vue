@@ -35,7 +35,7 @@
                     if (resp.data == 'success') {
                       // console.log(_this.ruleForm);
                       _this.$alert("申请成功！");
-                      _this.$router.push('/moneysExamine')
+                      _this.$router.push('/moneysApply')
                     }
                   });
                   axios.post('http://localhost:8181/researchMoneying/save',this.ruleForm).then(function (resp) {

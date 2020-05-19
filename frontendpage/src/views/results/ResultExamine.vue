@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="role == 2">
     <div id="items-show">
       <el-table
         :data="tableData"
@@ -61,7 +61,8 @@
         findTableData: {
           project_state: '已审核'
         },
-        dialogTableVisible: false
+        dialogTableVisible: false,
+        role: 3
       }
     },
     methods: {
@@ -91,6 +92,7 @@
       },
     },
     created() {
+      this.role = sessionStorage.getItem('role')
       const _this = this;
       axios.get('http://localhost:8181/researchResulting/findAll/0/5').then(function (resp) {
         // console.log(resp);

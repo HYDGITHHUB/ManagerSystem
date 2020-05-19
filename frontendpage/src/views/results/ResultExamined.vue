@@ -1,8 +1,9 @@
 <template>
   <div>
     <el-form :model="ruleForm" ref="ruleForm" label-width="150px" class="demo-ruleForm" style="width: 60%;margin-left: 10px">
-      <hr>
       <a href="/resultExamine" style="color: #0c7ed9;cursor: pointer">&lt;返回项目审核</a>
+      <hr>
+      <p style="color: #0c7ed9">项目信息</p>
       <el-form-item label="编号" prop="project_id">
         <el-input v-model="ruleForm.project_id" readonly></el-input>
       </el-form-item>
@@ -31,6 +32,8 @@
         <el-input type="textarea" v-model="ruleForm.project_describe" readonly></el-input>
       </el-form-item>
 
+      <hr>
+      <p style="color: #0c7ed9">结题信息</p>
       <el-form-item label="结题类型" prop="project_result_type">
         <el-input v-model="ruleForm.project_result_type" readonly></el-input>
       </el-form-item>
@@ -58,6 +61,16 @@
       <el-form-item label="专著内容" prop="project_technology_content">
         <el-input type="textarea" v-model="ruleForm.project_technology_content" readonly></el-input>
       </el-form-item>
+
+      <hr>
+      <p style="color: #0c7ed9">结题评价</p>
+      <el-form-item label="项目评分" prop="project_result_grade">
+        <el-input type="textarea" v-model="ruleForm.project_result_grade"></el-input>
+      </el-form-item>
+      <el-form-item label="项目评价" prop="project_result_comment">
+        <el-input type="textarea" v-model="ruleForm.project_result_comment"></el-input>
+      </el-form-item>
+
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">通过</el-button>
         <el-button type="primary" @click="deleteById()"style="margin-left: 100px">否决</el-button>
