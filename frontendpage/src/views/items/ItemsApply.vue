@@ -8,7 +8,7 @@
           v-model="ruleForm.project_owner"
           maxlength="20"
           show-word-limit
-          style="width: 300px">
+          style="width: 300px" readonly>
         </el-input>
       </el-form-item>
       <el-form-item label="项目主题" prop="project_theme">
@@ -74,7 +74,7 @@
           project_describe: '',
           project_type: '',
           project_grade: '',
-          project_owner: '',
+          project_owner: window.sessionStorage.getItem('name')
           // project_state: '未审核'
         },
         rules: {
@@ -103,6 +103,7 @@
                 console.log(_this.ruleForm);
                 _this.$alert("申请提交成功！");
                 setTimeout(()=>{
+                  _this.$router.push('/itemsExamine')
                   window.location.reload();
                 },1000)
               }

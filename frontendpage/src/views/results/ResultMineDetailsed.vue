@@ -12,6 +12,9 @@
       <el-form-item label="开始时间" prop="project_time">
         <el-input v-model="ruleForm.project_time" readonly></el-input>
       </el-form-item>
+      <el-form-item label="结题时间" prop="project_time_end">
+        <el-input v-model="ruleForm.project_time_end" readonly></el-input>
+      </el-form-item>
       <el-form-item label="主题" prop="project_theme">
         <el-input v-model="ruleForm.project_theme" readonly></el-input>
       </el-form-item>

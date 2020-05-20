@@ -1,6 +1,6 @@
 <template>
 <div>
-  <el-form :model="ruleForm" ref="ruleForm" label-width="150px" class="demo-ruleForm" style="width: 60%;margin: 10px">
+  <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm" style="width: 60%;margin: 10px">
     <hr>
     <p style="color: #0c7ed9">项目信息</p>
     <el-form-item label="编号" prop="project_id">
@@ -158,11 +158,13 @@
           ruleForm: {
             project_result_type: '学术专著'
           },
-          rules: '',
           projectMonograph: true,
           projectPress: false,
           projectPatent: false,
           projectTechnology: false,
+          rules: {
+
+          }
         }
       },
       created() {

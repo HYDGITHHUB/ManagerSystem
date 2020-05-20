@@ -53,13 +53,6 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination
-        background
-        layout="prev, pager, next"
-        :page-size="pageSized"
-        :total="totaled"
-        @current-change="changePaged">
-      </el-pagination>
     </div>
   </div>
 </template>
@@ -97,34 +90,23 @@
           });
         });
       },
-      changePaged(currentPage) {
-        const _this = this;
-        axios.get('http://localhost:8181/researchMoneyed/findAll/' + (currentPage - 1) + '/5').then(function (resp) {
-          _this.examined = resp.data.content;
-          _this.pageSized = resp.data.size;
-          _this.totaled = resp.data.totalElements;
-        })
-      }
     },
 
     data() {
       return {
-        pageSized: '',
-        totaled: '',
         examining: [],
         examined: [],
         search: '',
-        role: 3
+        role: 3,
+        userName: window.sessionStorage.getItem('name')
       }
     },
     created() {
       this.role = sessionStorage.getItem('role')
       const _this = this;
-        axios.get('http://localhost:8181/researchMoneyed/findAll/0/5').then(function (resp) {
+        axios.get('http://localhost:8181/researchMoneyed/findByName/' + _this.userName).then(function (resp) {
           console.log(resp);
-          _this.examined = resp.data.content;
-          _this.pageSized = resp.data.size;
-          _this.totaled = resp.data.totalElements;
+          _this.examined = resp.data;
         })
     }
   }

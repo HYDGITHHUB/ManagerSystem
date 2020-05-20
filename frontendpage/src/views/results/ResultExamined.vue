@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form :model="ruleForm" ref="ruleForm" label-width="150px" class="demo-ruleForm" style="width: 60%;margin-left: 10px">
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm" style="width: 60%;margin-left: 10px">
       <a href="/resultExamine" style="color: #0c7ed9;cursor: pointer">&lt;返回项目审核</a>
       <hr>
       <p style="color: #0c7ed9">项目信息</p>
@@ -146,7 +146,14 @@
     data() {
       return {
         ruleForm: {},
-        rules: '',
+        rules: {
+          project_result_grade: [
+            { required: true, message: '请输入内容', trigger: 'blur' }
+          ],
+          project_result_comment: [
+            { required: true, message: '请输入内容', trigger: 'blur' }
+          ]
+        },
       }
     },
     created() {
