@@ -86,7 +86,7 @@
                   axios.delete('http://localhost:8181/researchProject/deleteById/' + _this.ruleForm.project_id).then(function (resp) {
                     setTimeout(()=>{
                       window.location.reload()
-                    },1500)
+                    },1000)
                   })
                 }
               });

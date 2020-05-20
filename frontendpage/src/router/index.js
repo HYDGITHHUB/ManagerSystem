@@ -26,8 +26,6 @@ import BackHome from "../views/backstage/BackHome";
 import FindUserPersonnel from "../views/backstage/user/FindUserPersonnel";
 import UpdateUserPersonnel from "../views/backstage/user/UpdateUserPersonnel";
 import AddUserPersonnel from "../views/backstage/user/AddUserPersonnel";
-import UpdateUserManagerPersonnel from "../views/backstage/usermanager/UpdateUserManagerPersonnel";
-import UpdateUserSysManagerPersonnel from "../views/backstage/usersysmanager/UpdateUserSysManagerPersonnel";
 import ItemsUpdate from "../views/items/ItemsUpdate";
 import ResultsExamining from "../views/results/ResultsExamining";
 import ItemsExamining from "../views/items/ItemsExamining";
@@ -67,16 +65,6 @@ Vue.use(VueRouter)
           path: '/UpdateUserPersonnel',
           name: '修改',
           component: UpdateUserPersonnel
-        },
-        {
-          path: '/UpdateUserManagerPersonnel',
-          name: '修改',
-          component: UpdateUserManagerPersonnel
-        },
-        {
-          path: '/UpdateUserSysManagerPersonnel',
-          name: '修改',
-          component: UpdateUserSysManagerPersonnel
         },
       ]
     },

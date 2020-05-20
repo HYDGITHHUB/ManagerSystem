@@ -53,6 +53,9 @@ public class UserController {
         }
     }
 
+//
+
+
 //    @GetMapping("/findById/{id}")
 //    public String findById(@PathVariable("id") Integer id) {
 //        User user = userRepository.findById(id).orElse(new User());
@@ -61,6 +64,7 @@ public class UserController {
 
     @GetMapping("/findById/{id}")
     public User findById(@PathVariable("id") Integer id) {
+
         return userRepository.findById(id).get();
     }
 

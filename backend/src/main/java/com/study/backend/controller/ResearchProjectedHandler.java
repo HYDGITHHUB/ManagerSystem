@@ -1,6 +1,7 @@
 package com.study.backend.controller;
 
 import com.study.backend.entity.ResearchProjected;
+import com.study.backend.repositorymybatis.ResearchProjectedMyBatisRepository;
 import com.study.backend.repository.ResearchProjectedRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,12 +9,22 @@ import org.springframework.data.domain.PageRequest;
 //import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/researchProjected")
 public class ResearchProjectedHandler {
 
     @Autowired
     private ResearchProjectedRepository researchProjectedRepository;
+
+    @Autowired
+    private ResearchProjectedMyBatisRepository researchProjectedMyBatisRepository;
+
+    @GetMapping("/findByName/{project_owner}")
+    private List<ResearchProjected> findByName(@PathVariable("project_owner") String project_owner) {
+        return researchProjectedMyBatisRepository.findByName(project_owner);
+    }
 
     /**
      *

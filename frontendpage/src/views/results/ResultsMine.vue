@@ -49,13 +49,6 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination
-        background
-        layout="prev, pager, next"
-        :page-size="pageSize"
-        :total="total"
-        @current-change="changePage">
-      </el-pagination>
     </div>
     <div class="items-show" style="margin-top: 20px">
       <hr>
@@ -107,13 +100,6 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination
-        background
-        layout="prev, pager, next"
-        :page-size="pageSized"
-        :total="totaled"
-        @current-change="changePaged">
-      </el-pagination>
     </div>
   </div>
 </template>
@@ -181,62 +167,28 @@
           });
         });
       },
-      // edit(row) {
-      //   // console.log(row)
-      //   // alert(row.user_id)
-      //   this.$router.push({
-      //     path: '/UpdateUserPersonnel',
-      //     query:{
-      //       id:row.user_id
-      //     }
-      //   })
-      //   // console.log(row);
-      // },
-      changePage(currentPage) {
-        const _this = this;
-        axios.get('http://localhost:8181/researchResulted/findAll/' + (currentPage - 1) + '/5').then(function (resp) {
-          _this.examining = resp.data.content;
-          _this.pageSize = resp.data.size;
-          _this.total = resp.data.totalElements;
-        })
-      },
-      changePaged(currentPage) {
-        const _this = this;
-        axios.get('http://localhost:8181/researchResulted/findAll/' + (currentPage - 1) + '/5').then(function (resp) {
-          _this.examined = resp.data.content;
-          _this.pageSized = resp.data.size;
-          _this.totaled = resp.data.totalElements;
-        })
-      }
     },
 
     data() {
       return {
-        pageSize: '',
-        total: '',
-        pageSized: '',
-        totaled: '',
         examining: [],
         examined: [],
         search: '',
         searched: '',
-        role: 3
+        role: 3,
+        userName: window.sessionStorage.getItem('name')
       }
     },
     created() {
       this.role = sessionStorage.getItem('role')
       const _this = this;
-      axios.get('http://localhost:8181/researchResult/findAll/0/5').then(function (resp) {
-        console.log(resp);
-        _this.examining = resp.data.content;
-        _this.pageSize = resp.data.size;
-        _this.total = resp.data.totalElements;
+      axios.get('http://localhost:8181/researchResult/findByName/' +_this.userName).then(function (resp) {
+        // console.log(resp);
+        _this.examining = resp.data;
       }),
-        axios.get('http://localhost:8181/researchResulted/findAll/0/5').then(function (resp) {
-          console.log(resp);
-          _this.examined = resp.data.content;
-          _this.pageSized = resp.data.size;
-          _this.totaled = resp.data.totalElements;
+        axios.get('http://localhost:8181/researchResulted/findByName/' +_this.userName).then(function (resp) {
+          // console.log(resp);
+          _this.examined = resp.data;
         })
     }
   }
