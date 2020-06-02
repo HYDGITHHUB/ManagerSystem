@@ -14,5 +14,13 @@ spring:
     jpa:
       database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
       show-sql: true
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+      cluster-name: elasticsearch
+      cluster-nodes: 127.0.0.1:9300
+  jackson:
+    default-property-inclusion: non_null
 mybatis:
   mapper-locations: classpath:/mapping/*.xml

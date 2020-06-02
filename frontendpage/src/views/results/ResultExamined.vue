@@ -86,7 +86,7 @@
 
       submitForm(formName) {
         const _this = this;
-        _this.ruleForm.project_state = '已审核';
+        _this.ruleForm.project_result_state = '已审核';
         this.$confirm('是否通过该项申请?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',

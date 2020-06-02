@@ -6,6 +6,8 @@
 <!--        <p>高校科研管理系统</p>-->
         <div>
           <Login>
+<!--            <input slot="search_input" type="text"></input>-->
+<!--            <el-button slot="search" class="login-button" type="submit">搜索</el-button>-->
             <el-button slot="exit-button" class="login-button" type="submit" @click="logout()" v-if="role">退出</el-button>
             <el-button slot="manager-button" class="login-button" type="submit" @click="jumpBackPage" v-if="role == 1">管理员</el-button>
           </Login>

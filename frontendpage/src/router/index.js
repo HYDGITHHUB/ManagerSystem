@@ -46,6 +46,7 @@ import ItemMineDetailsed from "../views/items/ItemMineDetailsed";
 import MoneyMineDetails from "../views/moneys/MoneyMineDetails";
 import ResultMineDetails from "../views/results/ResultMineDetails";
 import ResultMineDetailsed from "../views/results/ResultMineDetailsed";
+import HomeResearch from "../views/home/HomeResearch";
 
 Vue.use(VueRouter)
 
@@ -92,6 +93,11 @@ Vue.use(VueRouter)
       name: '首页',
       component: Home,
       show: false
+    },
+    {
+      path: '/homeResearch',
+      name: '查询结果',
+      component: HomeResearch
     },
     {
       path: '/items',
