@@ -2,6 +2,8 @@
   <div id="login-btn">
     <!-- Table -->
     <!-- Form -->
+<!--    <slot name="search_input"></slot>-->
+<!--    <slot name="search"></slot>-->
     <span class="login-button" v-if="userInfo.name">{{userInfo.name}}</span>
     <el-button type="submit" @click="dialogFormVisible = true" class="login-button" v-else>登录</el-button>
     <span class="login-button" v-if="userInfo.role">当前角色：{{roleName[userInfo.role]}}</span>
@@ -94,10 +96,12 @@
           rules: {
             // 验证用户名是否合法
             name: [
-              { required: true, message: '请输入登录用户名', trigger: 'blur' }
+              { required: true, message: '请输入登录用户名', trigger: 'blur' },
+              {min: 2, max: 40, message: '长度在 2 到 40 个字符', trigger: 'blur'}
             ],
             password: [
-              { required: true, mhessage: '请输入登录密码', trigger: 'blur' }
+              { required: true, message: '请输入登录密码', trigger: 'blur' },
+              {min: 2, max: 30, message: '长度在 2 到 30 个字符', trigger: 'blur'}
             ]
           },
           roleName: {

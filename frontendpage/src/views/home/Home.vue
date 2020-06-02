@@ -123,6 +123,24 @@
       </div>
     </div>
     <div id="main-right">
+      <div>
+        <el-form :model="ruleForm" ref="ruleForm" label-width="5" class="demo-ruleForm">
+          <el-form-item prop="research" style="display: inline-block">
+            <el-input
+              type="text"
+              placeholder="请输入搜索内容"
+              v-model="ruleForm.research"
+              show-word-limit
+              style="width: 150px"
+              size="small">
+            </el-input>
+          </el-form-item>
+          <el-form-item style="display: inline-block;margin-left: 5px">
+            <el-button type="submit" size="small"
+                       @click="submitForm('ruleForm')">搜索</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
       <div id="right-info" class="right-style">
         <div class="main-tag">
           <p>通知公告</p>
@@ -175,7 +193,11 @@
             search_items: '',
             search_results: '',
             search_moneys: '',
-            search_organizations: ''
+            search_organizations: '',
+            search: '',
+            ruleForm: {
+              research: ''
+            }
           }
         },
         methods: {
@@ -201,6 +223,16 @@
               });
             });
           },
+          submitForm() {
+            const _this = this;
+            // alert(_this.ruleForm.research)
+            this.$router.push({
+              path: '/homeResearch',
+              query: {
+                id: _this.ruleForm.research
+              }
+            })
+          }
         },
       created() {
         const _this = this;
