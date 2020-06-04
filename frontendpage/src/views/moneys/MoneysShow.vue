@@ -122,6 +122,8 @@
       }
     },
 
+
+
     data() {
       return {
         pageSized: '',
@@ -132,9 +134,25 @@
         role: 3
       }
     },
+
+    //记录搜索框
+    watch: {
+      'search': function (newVal) {
+        axios.get('http://localhost:8181/keyInfo/add/' + newVal).then(function (resp) {
+        });
+      },
+    },
+
+
     created() {
       this.role = sessionStorage.getItem('role');
       const _this = this;
+
+      //记录打开科研经费页面（点击按钮）
+      axios.get('http://localhost:8181/clickInfo/add/kyjf').then(function (resp) {
+        // console.log(resp);
+      });
+
       axios.get('http://localhost:8181/researchMoneyed/findAll/0/5').then(function (resp) {
         console.log(resp);
         _this.examined = resp.data.content;

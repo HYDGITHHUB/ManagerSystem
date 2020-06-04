@@ -3,11 +3,10 @@
     <div id="home-header">
       <div id="header-logo">
         <img src="./assets/img/home/logo1.jpg" alt="logo" style="height: 120px">
-<!--        <p>高校科研管理系统</p>-->
+        <!--        <p>高校科研管理系统</p>-->
         <div>
+          <el-button class="echarts-button" size="mini"  @click="echarts()" >图表展示</el-button>
           <Login>
-<!--            <input slot="search_input" type="text"></input>-->
-<!--            <el-button slot="search" class="login-button" type="submit">搜索</el-button>-->
             <el-button slot="exit-button" class="login-button" type="submit" @click="logout()" v-if="role">退出</el-button>
             <el-button slot="manager-button" class="login-button" type="submit" @click="jumpBackPage" v-if="role == 1">管理员</el-button>
           </Login>
@@ -19,7 +18,7 @@
         <p @click="moneysClick" :class="{active: isMoneysActive}">科研经费</p>
         <p @click="resultsClick" :class="{active: isResultsActive}">科研成果</p>
         <p @click="organizationsClick" :class="{active: isOrganizationsActive}">科研机构</p>
-        </div>
+      </div>
     </div>
     <router-view></router-view>
     <div id="home-footer">
@@ -63,6 +62,9 @@
       this.role = sessionStorage.getItem('role')
     },
     methods: {
+      echarts(){
+        this.$router.push({ path:'/ecahrts'  })
+      },
       homeClick() {
         this.$router.push(this.path1);
         if (this.$route.path == this.path1) {

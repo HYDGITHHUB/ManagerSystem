@@ -31,7 +31,7 @@
           <template slot-scope="scope"  >
             <el-button @click="details(scope.row)" type="text" size="small">详情</el-button>
             <el-button @click="examine(scope.row)" type="text" size="small">审核</el-button>
-<!--            <el-button @click="deleteById(scope.row)" type="text" size="small" style="margin-left: 10px">否决</el-button>-->
+            <!--            <el-button @click="deleteById(scope.row)" type="text" size="small" style="margin-left: 10px">否决</el-button>-->
           </template>
         </el-table-column>
       </el-table>
@@ -63,69 +63,75 @@
     methods:
       {
         details(row) {
-        this.$router.push({
-          path: '/itemsDetailsed',
-          query: {
-            id: row.project_id
-          }
-        })
+          this.$router.push({
+            path: '/itemsDetailsed',
+            query: {
+              id: row.project_id
+            }
+          })
+        },
+        cancel() {
+          window.location.reload();
+        },
+        // deleteById(row) {
+        //   const _this = this
+        //   this.$confirm('是否确认否决该项申请?', '提示', {
+        //     confirmButtonText: '确定',
+        //     cancelButtonText: '取消',
+        //     type: 'warning'
+        //   }).then(() => {
+        //     axios.delete('http://localhost:8181/researchProject/deleteById/' + row.project_id).then(function (resp) {
+        //       _this.$alert(row.project_theme + ' ' + '已否决', '消息', {
+        //         confirmButtonText: '确定',
+        //         callback: action => {
+        //           window.location.reload()
+        //         }
+        //       });
+        //     })
+        //   }).catch(() => {
+        //     this.$message({
+        //       type: 'info',
+        //       message: '已取消删除'
+        //     });
+        //   });
+        // },
+        // edit(row) {
+        //   // console.log(row)
+        //   // alert(row.user_id)
+        //   this.$router.push({
+        //     path: '/itemsUpdate',
+        //     query: {
+        //       id: row.project_id
+        //     }
+        //   })
+        //   // console.log(row);
+        // },
+        changePage(currentPage) {
+          const _this = this;
+          axios.get('http://localhost:8181/researchProject/findAll/' + (currentPage - 1) + '/5').then(function (resp) {
+            _this.tableData = resp.data.content;
+            _this.pageSize = resp.data.size;
+            _this.total = resp.data.totalElements;
+          })
+        },
+        examine(row) {
+          this.$router.push({
+            path: '/itemsExamining',
+            query: {
+              id: row.project_id
+            }
+          })
+        },
       },
-      cancel() {
-        window.location.reload();
-      },
-      // deleteById(row) {
-      //   const _this = this
-      //   this.$confirm('是否确认否决该项申请?', '提示', {
-      //     confirmButtonText: '确定',
-      //     cancelButtonText: '取消',
-      //     type: 'warning'
-      //   }).then(() => {
-      //     axios.delete('http://localhost:8181/researchProject/deleteById/' + row.project_id).then(function (resp) {
-      //       _this.$alert(row.project_theme + ' ' + '已否决', '消息', {
-      //         confirmButtonText: '确定',
-      //         callback: action => {
-      //           window.location.reload()
-      //         }
-      //       });
-      //     })
-      //   }).catch(() => {
-      //     this.$message({
-      //       type: 'info',
-      //       message: '已取消删除'
-      //     });
-      //   });
-      // },
-      // edit(row) {
-      //   // console.log(row)
-      //   // alert(row.user_id)
-      //   this.$router.push({
-      //     path: '/itemsUpdate',
-      //     query: {
-      //       id: row.project_id
-      //     }
-      //   })
-      //   // console.log(row);
-      // },
-      changePage(currentPage) {
-        const _this = this;
-        axios.get('http://localhost:8181/researchProject/findAll/' + (currentPage - 1) + '/5').then(function (resp) {
-          _this.tableData = resp.data.content;
-          _this.pageSize = resp.data.size;
-          _this.total = resp.data.totalElements;
-        })
-      },
-      examine(row) {
-        this.$router.push({
-          path: '/itemsExamining',
-          query: {
-            id: row.project_id
-          }
-        })
-      },
-    },
     created() {
       this.role = sessionStorage.getItem('role')
       const _this = this;
+
+      //记录打开项目审核页面（点击按钮）
+      axios.get('http://localhost:8181/clickInfo/add/xmsh').then(function (resp) {
+        // console.log(resp);
+      });
+
       axios.get('http://localhost:8181/researchProject/findAll/0/5').then(function (resp) {
         // console.log(resp);
         _this.tableData = resp.data.content;

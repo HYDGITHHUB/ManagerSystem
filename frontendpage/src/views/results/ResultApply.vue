@@ -88,12 +88,18 @@
     },
     created() {
       const _this = this;
-        axios.get('http://localhost:8181/researchResult/findAll/0/5').then(function (resp) {
-          console.log(resp);
-          _this.examined = resp.data.content;
-          _this.pageSized = resp.data.size;
-          _this.totaled = resp.data.totalElements;
-        })
+
+      //记录打开结题申请页面（点击按钮）
+      axios.get('http://localhost:8181/clickInfo/add/jtsq').then(function (resp) {
+        // console.log(resp);
+      });
+
+      axios.get('http://localhost:8181/researchResult/findAll/0/5').then(function (resp) {
+        console.log(resp);
+        _this.examined = resp.data.content;
+        _this.pageSized = resp.data.size;
+        _this.totaled = resp.data.totalElements;
+      })
     }
   }
 </script>

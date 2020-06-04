@@ -126,9 +126,24 @@
         role: 3
       }
     },
+
+    //记录搜索框内容
+    watch:{
+      'search':function(newVal) {
+        axios.get('http://localhost:8181/keyInfo/add/'+newVal).then(function (resp) {
+        });
+      },
+    },
+
     created() {
       this.role = sessionStorage.getItem('role')
       const _this = this;
+
+      //记录打开科研成果页面（点击按钮）
+      axios.get('http://localhost:8181/clickInfo/add/kycg').then(function (resp) {
+        // console.log(resp);
+      });
+
       axios.get('http://localhost:8181/researchResulted/findAll/0/5').then(function (resp) {
         // console.log(resp);
         _this.tableData = resp.data.content;

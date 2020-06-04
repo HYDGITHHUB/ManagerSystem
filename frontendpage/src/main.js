@@ -5,6 +5,11 @@ import router from './router'
 import store from './store'
 import './plugins/element.js'
 import axios from 'axios'
+import Echarts from 'echarts'
+
+Vue.prototype.echarts = Echarts
+Vue.use(Echarts)
+
 axios.defaults.baseURL = 'http://localhost:8181/'
 // 在request 拦截器中，展示进度条 NProgress.start()
 axios.interceptors.request.use(config => {
