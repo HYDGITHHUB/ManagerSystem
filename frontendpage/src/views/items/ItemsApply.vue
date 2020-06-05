@@ -8,7 +8,7 @@
           v-model="ruleForm.project_owner"
           maxlength="20"
           show-word-limit
-          style="width: 300px" readonly>
+          style="width: 300px">
         </el-input>
       </el-form-item>
       <el-form-item label="项目主题" prop="project_theme">
@@ -66,6 +66,7 @@
 
 <script>
   export default {
+
     data() {
       return {
         ruleForm: {
@@ -74,9 +75,11 @@
           project_describe: '',
           project_type: '',
           project_grade: '',
-          project_owner: window.sessionStorage.getItem('name')
+          project_owner: '',
           // project_state: '未审核'
         },
+
+
         rules: {
           project_owner: [
             { required: true, message: '请输入内容', trigger: 'blur' }
@@ -93,6 +96,9 @@
         },
       };
     },
+
+
+
     methods: {
       submitForm(formName) {
         const _this = this;
@@ -103,7 +109,6 @@
                 console.log(_this.ruleForm);
                 _this.$alert("申请提交成功！");
                 setTimeout(()=>{
-                  _this.$router.push('/itemsExamine')
                   window.location.reload();
                 },1000)
               }
@@ -112,6 +117,12 @@
             console.log("error");
             return false;
           }
+
+          //记录打开项目申请页面（点击按钮）
+          axios.get('http://localhost:8181/clickInfo/add/xmsq').then(function (resp) {
+            // console.log(resp);
+          })
+
         });
       },
       resetForm(formName) {

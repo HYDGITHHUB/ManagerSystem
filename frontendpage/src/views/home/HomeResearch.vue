@@ -11,8 +11,9 @@
       </div>
       <div>
         <el-table
-          :data="tableData.filter(data => !search ||
-          data.project_theme.toLowerCase().includes(search.toLowerCase()))"
+          :data="tableData
+          .filter(data => !research ||
+          data.project_theme.toLowerCase().includes(research.toLowerCase()))"
           style="width: 95%;margin-left: 20px">
           <el-table-column
             prop="project_id"
@@ -44,24 +45,15 @@
               <el-button @click="deleteById(scope.row)" type="text" size="small" v-if="role == 2">删除</el-button>
             </template>
           </el-table-column>
-          <el-table-column
-            align="right">
-            <template slot="header" slot-scope="scope">
-              <el-input
-                v-model="search"
-                size="mini"
-                placeholder="输入主题关键字搜索"/>
-            </template>
-          </el-table-column>
         </el-table>
-        <el-pagination
-          background
-          layout="prev, pager, next"
-          :page-size="pageSize"
-          :total="total"
-          @current-change="changePage"
-          style="margin-left: 20px">
-        </el-pagination>
+<!--        <el-pagination-->
+<!--          background-->
+<!--          layout="prev, pager, next"-->
+<!--          :page-size="pageSize"-->
+<!--          :total="total"-->
+<!--          @current-change="changePage"-->
+<!--          style="margin-left: 20px">-->
+<!--        </el-pagination>-->
       </div>
     </div>
     <div id="main-right">
@@ -94,65 +86,80 @@
 </template>
 
 <script>
-    export default {
-        name: "Home",
-        data() {
-          return {
-            notice: [
-              '关于我校2020年放假时间',
-              '关于我校2020年开学时间',
-              '关于我校2020年大三实习时间',
-              '关于我校2020年期末考试安排'
-            ],
-            information: [
-              '关于我校2020年放假时间',
-              '关于我校2020年开学时间',
-              '关于我校2020年大三实习时间',
-              '关于我校2020年期末考试安排'
-            ],
-            tableData: [],
-            tableDataResults: [],
-            tableDataMoneys: [],
-            tableDataOrganizations: [],
-            search_items: '',
-            search_results: '',
-            search_moneys: '',
-            search_organizations: '',
-            research: '',
-            pageSize: '',
-            total: '',
-          }
-        },
-        methods: {
-          deletedById(row) {
-            const _this = this
-            this.$confirm('此操作将永久删除该项内容, 是否继续?', '提示', {
-              confirmButtonText: '确定',
-              cancelButtonText: '取消',
-              type: 'warning'
-            }).then(() => {
-              axios.delete('http://localhost:8181/researchMoneyed/deleteById/' + row.project_id).then(function (resp) {
-                _this.$alert(row.project_theme + ' ' + '删除成功', '消息', {
-                  confirmButtonText: '确定',
-                  callback: action => {
-                    window.location.reload()
-                  }
-                });
-              })
-            }).catch(() => {
-              this.$message({
-                type: 'info',
-                message: '已取消删除'
-              });
-            });
-          },
-        },
-      created() {
-        const _this = this;
-        _this.research = _this.$route.query.id;
-        // alert(_this.$route.query.id)
+  export default {
+    name: "Home",
+    data() {
+      return {
+        notice: [
+          '关于我校2020年放假时间',
+          '关于我校2020年开学时间',
+          '关于我校2020年大三实习时间',
+          '关于我校2020年期末考试安排'
+        ],
+        information: [
+          '关于我校2020年放假时间',
+          '关于我校2020年开学时间',
+          '关于我校2020年大三实习时间',
+          '关于我校2020年期末考试安排'
+        ],
+        tableData: [],
+        tableDataResults: [],
+        tableDataMoneys: [],
+        tableDataOrganizations: [],
+        search_items: '',
+        search_results: '',
+        search_moneys: '',
+        search_organizations: '',
+        research: '',
+        pageSize: '',
+        total: '',
       }
+    },
+    methods: {
+      deletedById(row) {
+        const _this = this
+        this.$confirm('此操作将永久删除该项内容, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          axios.delete('http://localhost:8181/researchMoneyed/deleteById/' + row.project_id).then(function (resp) {
+            _this.$alert(row.project_theme + ' ' + '删除成功', '消息', {
+              confirmButtonText: '确定',
+              callback: action => {
+                window.location.reload()
+              }
+            });
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+      },
+      // changePage(currentPage) {
+      //   const _this = this;
+      //   axios.get('http://localhost:8181/researchResulted/findAll/' + (currentPage - 1) + '/5').then(function (resp) {
+      //     _this.tableData = resp.data.content;
+      //     _this.pageSize = resp.data.size;
+      //     _this.total = resp.data.totalElements;
+      //   })
+      // }
+    },
+    created() {
+      const _this = this;
+      _this.research = _this.$route.query.id;
+      // alert(_this.$route.query.id)
+
+      axios.get('http://localhost:8181/researchResulted/findAll/0/10').then(function (resp) {
+        // console.log(resp);
+        _this.tableData = resp.data.content;
+        // _this.pageSize = resp.data.size;
+        // _this.total = resp.data.totalElements;
+      });
     }
+  }
 </script>
 
 <style scoped>
@@ -169,13 +176,14 @@
     justify-content: space-between;
   }
 
-  .main-tag p{
+  .main-tag p {
     color: #0c7ed9;
     cursor: pointer;
     font-size: 20px;
   }
+
   /*left*/
-  #main-left p{
+  #main-left p {
     color: #0c7ed9;
     cursor: pointer;
     font-size: 20px;
@@ -188,13 +196,14 @@
     overflow: hidden;
   }
 
-  .left-style{
+  .left-style {
     width: 450px;
     height: 420px;
     margin-top: 10px;
     margin-left: 20px;
     overflow: hidden;
   }
+
   /*right*/
 
   #main-right {
@@ -210,7 +219,7 @@
     /*border-left: 1px solid #303133;*/
   }
 
-  .right-content ul li{
+  .right-content ul li {
     line-height: 25px;
     cursor: pointer;
     margin-top: 10px;

@@ -53,6 +53,13 @@
           </template>
         </el-table-column>
       </el-table>
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :page-size="pageSized"
+        :total="totaled"
+        @current-change="changePaged">
+      </el-pagination>
     </div>
   </div>
 </template>
@@ -90,24 +97,50 @@
           });
         });
       },
+      changePaged(currentPage) {
+        const _this = this;
+        axios.get('http://localhost:8181/researchMoneyed/findAll/' + (currentPage - 1) + '/5').then(function (resp) {
+          _this.examined = resp.data.content;
+          _this.pageSized = resp.data.size;
+          _this.totaled = resp.data.totalElements;
+        })
+      }
     },
 
     data() {
       return {
+        pageSized: '',
+        totaled: '',
         examining: [],
         examined: [],
         search: '',
-        role: 3,
-        userName: window.sessionStorage.getItem('name')
+        role: 3
       }
     },
+
+    //记录搜索框内容
+    watch:{
+      'search':function(newVal) {
+        axios.get('http://localhost:8181/keyInfo/add/'+newVal).then(function (resp) {
+        });
+      },
+    },
+
     created() {
       this.role = sessionStorage.getItem('role')
       const _this = this;
-        axios.get('http://localhost:8181/researchMoneyed/findByName/' + _this.userName).then(function (resp) {
-          console.log(resp);
-          _this.examined = resp.data;
-        })
+
+      //记录打开我的经费页面（点击按钮）
+      axios.get('http://localhost:8181/clickInfo/add/wdjf').then(function (resp) {
+        // console.log(resp);
+      });
+
+      axios.get('http://localhost:8181/researchMoneyed/findAll/0/5').then(function (resp) {
+        console.log(resp);
+        _this.examined = resp.data.content;
+        _this.pageSized = resp.data.size;
+        _this.totaled = resp.data.totalElements;
+      })
     }
   }
 </script>

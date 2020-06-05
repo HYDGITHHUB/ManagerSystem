@@ -66,6 +66,7 @@
           }
         })
       },
+
       deleteById(row) {
         const _this = this
         this.$confirm('此操作将永久删除该项内容, 是否继续?', '提示', {
@@ -119,9 +120,24 @@
         role: 3
       }
     },
+
+    //记录搜索框内容
+    watch:{
+      'search':function(newVal) {
+        axios.get('http://localhost:8181/keyInfo/add/'+newVal).then(function (resp) {
+        });
+      },
+    },
+
     created() {
       this.role = sessionStorage.getItem('role')
       const _this = this;
+
+      //记录打开科研项目页面（点击按钮）
+      axios.get('http://localhost:8181/clickInfo/add/kyxm').then(function (resp) {
+        // console.log(resp);
+      });
+
       axios.get('http://localhost:8181/researchProjected/findAll/0/5').then(function (resp) {
         // console.log(resp);
         _this.tableData = resp.data.content;

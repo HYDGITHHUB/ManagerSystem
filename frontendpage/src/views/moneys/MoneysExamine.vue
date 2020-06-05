@@ -131,6 +131,12 @@
     created() {
       this.role = sessionStorage.getItem('role')
       const _this = this;
+
+      //记录打开经费审核页面（点击按钮）
+      axios.get('http://localhost:8181/clickInfo/add/jfsh').then(function (resp) {
+        // console.log(resp);
+      });
+
       axios.get('http://localhost:8181/researchMoneying/findAll/0/5').then(function (resp) {
         // console.log(resp);
         _this.tableData = resp.data.content;

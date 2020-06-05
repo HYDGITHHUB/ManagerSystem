@@ -87,6 +87,12 @@
     },
     created() {
       const _this = this;
+
+      //记录打开经费申请页面（点击按钮）
+      axios.get('http://localhost:8181/clickInfo/add/jfsq').then(function (resp) {
+        // console.log(resp);
+      });
+
       axios.get('http://localhost:8181/researchMoney/findAll/0/5').then(function (resp) {
         console.log(resp);
         _this.examined = resp.data.content;
