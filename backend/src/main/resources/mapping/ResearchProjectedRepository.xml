@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.backend.repositorymybatis.ResearchProjectedMyBatisRepository">
+    <select id="findByName" parameterType="java.lang.String" resultType="com.study.backend.entity.ResearchProjected">
+        select * from research_projected where project_owner = #{project_owner}
+    </select>
+</mapper>
